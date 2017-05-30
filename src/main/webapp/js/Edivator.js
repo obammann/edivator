@@ -1,17 +1,17 @@
 //Globale Variablen
 var picture_obj = {
-	width: 100, 				//Prozentualer Wert in relation zur Orginalgröße, 10 bis 1000
-	height: 100, 				//Prozentualer Wert in relation zur Orginalgröße, 10 bis 1000
-	rotation: 0,				//Grad kann negativ oder positiv sein
-	flippedHorizontal: false,	//Bool Wert: false = nicht gespiegelt, true= gespiegelt
-	flippedVertical: false,		//Bool Wert: false = nicht gespiegelt, true= gespiegelt
-	offsetLeft: 0,				//Prozentangabe, die Links vom Bild abgeschnitten wird 0-90
-	offsetRight: 0,				//Prozentangabe, die Rechts vom Bild abgeschnitten wird 0-90
-	offsetTop: 0,				//Prozentangabe, die Oben vom Bild abgeschnitten wird 0-90
-	offsetBottom: 0,			//Prozentangabe, die Unten vom Bild abgeschnitten wird 0-90
-	feelingLucky: false,		//Bool Wert: false = feeling Lucky Filter nicht aktiv, true = feeling Lucky Filter aktiv
-	format: "png",				//png, jpg oder webm
-	target: "preview"			//preview = Vorschaubild, email = per E-Mail senden, download = Bild herunterladen
+    "width": 100, 				//Prozentualer Wert in relation zur Orginalgröße, 10 bis 1000
+    height: 100, 				//Prozentualer Wert in relation zur Orginalgröße, 10 bis 1000
+    rotation: 0,				//Grad kann negativ oder positiv sein
+    flippedHorizontal: false,	//Bool Wert: false = nicht gespiegelt, true= gespiegelt
+    flippedVertical: false,		//Bool Wert: false = nicht gespiegelt, true= gespiegelt
+    offsetLeft: 0,				//Prozentangabe, die Links vom Bild abgeschnitten wird 0-90
+    offsetRight: 0,				//Prozentangabe, die Rechts vom Bild abgeschnitten wird 0-90
+    offsetTop: 0,				//Prozentangabe, die Oben vom Bild abgeschnitten wird 0-90
+    offsetBottom: 0,			//Prozentangabe, die Unten vom Bild abgeschnitten wird 0-90
+    feelingLucky: false,		//Bool Wert: false = feeling Lucky Filter nicht aktiv, true = feeling Lucky Filter aktiv
+    format: "png",				//png, jpg oder webm
+    target: "preview"			//preview = Vorschaubild, email = per E-Mail senden, download = Bild herunterladen
 };
 
 var versions = new Array;		//Array der alle alten Versionen des Picture Objektes enthält
