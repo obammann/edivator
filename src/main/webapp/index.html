@@ -7,10 +7,20 @@
 
     <title>Edivator</title>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="Edivator.css">
-    <script src="js/Edivator.js"></script>
 </head>
 
 <body>
@@ -38,8 +48,8 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-13">
-                        <button class="btn btn-default" style="width:100%;" type="button">
+                    <div class="col-sm-12">
+                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.UploadDialog();">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                             Upload Picture
                         </button>
@@ -47,7 +57,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-default" style="width:100%;" type="button">
+                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.ExportDialog();">
                             <i class="fa fa-cog" aria-hidden="true"></i>
                             Export Picture
                         </button>
@@ -152,7 +162,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        Bild
+                        <div id="PictureArea"></div>
                     </div>
                 </div>
             </div>
@@ -164,6 +174,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+<script src="js/Edivator.js"></script>
 <script src="js/EdivatorAngular.js"></script>
 </body>
 </html>
