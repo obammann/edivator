@@ -50,6 +50,14 @@
             <artifactId>spring-core</artifactId>
             <version>4.3.8.RELEASE</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.appengine.tools/appengine-gcs-client -->
+        <dependency>
+            <groupId>com.google.appengine.tools</groupId>
+            <artifactId>appengine-gcs-client</artifactId>
+            <version>0.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>
