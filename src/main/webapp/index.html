@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="container-fluid" style="height:100%;" ng-controller="PictureCtrl">
+<div class="container-fluid" style="height:100%;" ng-controller="PictureCtrl as pctrl">
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -39,9 +39,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-13">
-                        <button class="btn btn-default" style="width:100%;" type="button">
+                        <input type="file" id="file" name="file"/>
+                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="pctrl.uploadPicture()" >
                             <i class="fa fa-upload" aria-hidden="true"></i>
-                            Upload Picture
+                            Upload Picture ({{ uploadState }})
                         </button>
                     </div>
                 </div>
