@@ -18,7 +18,7 @@ public class OperationController {
     @RequestMapping(path = "/image/{imageId}/flip", method = RequestMethod.PUT)
     public String flip(@PathVariable("imageId") int imageId,
                      @RequestParam(value = "horizontal", defaultValue = "false") boolean horizontal) {
-        return "Imagine you flipped the image with id " + imageId + ".";
+        return "Imagine you flipped the image with id " + imageId + " " + (horizontal ? "horizontally" : "vertically") + ".";
     }
 
     @RequestMapping(path = "/image/{imageId}/resize", method = RequestMethod.PUT)
