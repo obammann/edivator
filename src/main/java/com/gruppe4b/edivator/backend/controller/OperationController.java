@@ -6,6 +6,8 @@ import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 public class OperationController {
 
@@ -44,7 +46,7 @@ public class OperationController {
 
     // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
 
-    @RequestMapping(path = "/image/", method = RequestMethod.POST)
+    @RequestMapping(path = "/image", method = RequestMethod.POST)
     public void uploadImage(HttpEntity<byte[]> requestEntity) {
 
         byte[] payload = requestEntity.getBody();
@@ -53,7 +55,12 @@ public class OperationController {
 
         String new_image_id = new Integer(payload.hashCode() + DateTime.now().hashCode()).toString();
 
-      //  imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+        try {
+            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+            System.out.println("Payload: " + payload);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // TODO: Send JSON-Response with the new id or redircect link
 

@@ -40,19 +40,26 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 			//send your binary data via $http or $resource or do anything else with it
 			// https://stackoverflow.com/questions/25152700/angularjs-put-binary-data-from-arraybuffer-to-the-server
 			// Url fehlr
-			$http({
-				method: 'PUT',
-				headers: {'Content-Type': 'undefined'},
-				data: new Uint8Array(r.result),
-				transformRequest: []
-			});
+			// $http({
+			// 	method: 'PUT',
+			// 	headers: {'Content-Type': 'undefined'},
+			// 	data: new Uint8Array(r.result),
+			// 	transformRequest: []
+			// });
 
 
 			// Other Solution:
 			// https://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
-
-            $scope.uploadState = "Uploaded Picture succesfully.";
-
+            var uploadUrl = "http://localhost:8080/image"
+			$http.post(uploadUrl, data, {
+                withCredentials: true,
+                headers: {'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).success(
+                $scope.uploadState = "Uploaded Picture succesfully."
+			).error(
+                $scope.uploadState = "Uploaded Picture failed."
+			);
         }
 
         r.readAsArrayBuffer(f);

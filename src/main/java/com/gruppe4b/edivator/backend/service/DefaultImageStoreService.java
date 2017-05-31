@@ -23,6 +23,7 @@ public class DefaultImageStoreService implements ImageStoreService {
         this.imagesService = ImagesServiceFactory.getImagesService();
         this.gcsService = GcsServiceFactory.createGcsService(new RetryParams.Builder()
                 .initialRetryDelayMillis(10)
+                .retryMinAttempts(1)
                 .retryMaxAttempts(2)
                 .totalRetryPeriodMillis(5000)
                 .build());
