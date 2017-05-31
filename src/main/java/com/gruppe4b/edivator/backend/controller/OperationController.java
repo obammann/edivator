@@ -9,11 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class OperationController {
 
+    @RequestMapping (path="/test/operationsrunning", method = RequestMethod.GET)
+    public String testAnswer(){
+        return  "Route kommt auch hier an.";
+    }
+
 
     @RequestMapping(path = "/image/{imageId}/flip", method = RequestMethod.PUT)
     public String flip(@PathVariable("imageId") int imageId,
                      @RequestParam(value = "horizontal", defaultValue = "false") boolean horizontal) {
-        return "Imagine you flipped the image with id " + imageId + ".";
+        return "Imagine you flipped the image with id " + imageId + " " + (horizontal ? "horizontally" : "vertically") + ".";
     }
 
     @RequestMapping(path = "/image/{imageId}/resize", method = RequestMethod.PUT)
@@ -48,7 +53,7 @@ public class OperationController {
 
         String new_image_id = new Integer(payload.hashCode() + DateTime.now().hashCode()).toString();
 
-        imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+      //  imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
 
         // TODO: Send JSON-Response with the new id or redircect link
 
