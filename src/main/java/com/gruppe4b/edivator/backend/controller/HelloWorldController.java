@@ -19,6 +19,6 @@ public class HelloWorldController {
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(1,
-                String.format("yyyxxxHello, %s!", name));
+                String.format("Wubalubadapdap, %s!", name));
     }
 }
