@@ -188,21 +188,45 @@ function PictureFactory_UploadDialog(){
 
         if (file.type.match(imageType)) {
             var reader = new FileReader();
+            //
+            // reader.onload = function(e) {
+            //     fileDisplayArea.innerHTML = "Preview:";
+            //
+            //     // Create a new image.
+            //     img = new Image();
+            //     // Set the img src property using the data URL.
+            //     img.src = reader.result;
+            //     img.style.width = "100%";
+            //
+            //     // Add the image to the page.
+            //     fileDisplayArea.appendChild(img);
+            // }
+            //
+            // reader.readAsDataURL(file);
 
-            reader.onload = function(e) {
-                fileDisplayArea.innerHTML = "Preview:";
 
-                // Create a new image.
-                img = new Image();
-                // Set the img src property using the data URL.
-                img.src = reader.result;
-                img.style.width = "100%";
+            reader.onloadend = function(e) {
+                var data = e.target.result;
 
-                // Add the image to the page.
-                fileDisplayArea.appendChild(img);
+                // Other Solution:
+                // https://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
+                var uploadUrl = "/image"
+                $http.post(uploadUrl, data, {
+                    withCredentials: true,
+                    headers: {'Content-Type': undefined },
+                    transformRequest: angular.identity
+                }).success(
+                  //  $scope.uploadState = "Uploaded Picture succesfully."
+                ).error(
+                  // $scope.uploadState = "Uploaded Picture failed."
+                );
             }
 
-            reader.readAsDataURL(file);
+            reader.readAsArrayBuffer(file);
+
+
+
+
         } else {
             fileDisplayArea.innerHTML = "File not supported!";
         }
