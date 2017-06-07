@@ -9,5 +9,5 @@ public interface ImageEditService {
     public Image performTransformation(Image image, Transform transform);
     public boolean uploadImageToCloud(Image image) throws Exception;
     public Image loadImageFromCloud(String imageFileName);
-    public byte[] convertFileToByteArray(String imageFile) throws IOException;
+    public byte[] convertFileToByteArray(String imageFilePath) throws IOException;
 }

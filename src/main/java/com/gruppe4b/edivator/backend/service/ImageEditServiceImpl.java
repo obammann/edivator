@@ -59,7 +59,7 @@ public class ImageEditServiceImpl implements ImageEditService {
     }
 
     @Override
-    public byte[] convertFileToByteArray(String imageFile) throws IOException {
+    public byte[] convertFileToByteArray(String imageFilePath) throws IOException {
 
         FileChannel fileChannel;
         ByteBuffer byteBuffer;

@@ -15,7 +15,7 @@
         to avoid double create the movieController bean.
                 Only controller need this hack.
     -->
-    <context:component-scan base-package="com.gruppe4b.edivator.backend.controller">
+    <context:component-scan base-package="com.gruppe4b.edivator.backend">
     </context:component-scan>
 
     <mvc:annotation-driven />
