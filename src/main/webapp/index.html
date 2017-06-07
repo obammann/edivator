@@ -24,7 +24,7 @@
 </head>
 
 <body>
-<div class="container-fluid" style="height:100%;" ng-controller="PictureCtrl">
+<div class="container-fluid" style="height:100%;" ng-controller="PictureCtrl as pctrl">
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -49,7 +49,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.UploadDialog();">
+                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="pctrl.OpenUploadDialog();">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                             Upload Picture
                         </button>
