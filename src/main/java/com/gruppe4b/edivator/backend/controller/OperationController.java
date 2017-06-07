@@ -3,8 +3,14 @@ package com.gruppe4b.edivator.backend.controller;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 public class OperationController {
@@ -42,14 +48,42 @@ public class OperationController {
 
     }
 
+    @RequestMapping(path = "/imagetest")
+    public String testImage() {
+
+        System.out.println("Upload requested.");
+        // byte[] payload = requestEntity.getBody();
+
+        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
+
+
+        Resource resource = new ClassPathResource("garfield.jpg");
+        try {
+            InputStream resourceInputStream = resource.getInputStream();
+
+            byte[] bytes = IOUtils.toByteArray(resourceInputStream);
+            System.out.println("Image: " + bytes);
+            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(bytes), "Uploaded_Garfield.jpg");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Imagetest:" + DateTime.now();
+
+    }
+
+
     // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
 
     @RequestMapping(path = "/image/", method = RequestMethod.POST)
     public void uploadImage(HttpEntity<byte[]> requestEntity) {
 
+
+        System.out.println("Upload requested.");
         byte[] payload = requestEntity.getBody();
 
         DefaultImageStoreService imageStore = new DefaultImageStoreService("gruppe4b"); // TODO: use DI
+
 
         String new_image_id = new Integer(payload.hashCode() + DateTime.now().hashCode()).toString();
 
