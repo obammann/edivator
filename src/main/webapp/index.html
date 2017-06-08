@@ -1,7 +1,4 @@
-
-<!DOCTYPE html>
-
-<html>
+<html ng-app="Edivator">
 
 <head>
     <meta charset="utf-8">
@@ -9,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Edivator</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
@@ -26,21 +25,22 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="Edivator.css">
+
 </head>
 
-<body style="background-color:#d2d2d2;">
-<div class="container-fluid">
+<body style="background-color:#f7f7f9;">
+<div class="container-fluid" ng-controller="PictureCtrl">
     <div class="row">	<!-- Kopfzeile -->
         <div class = "col-sm-2">
-            <div class="card">
+            <div class="card" style="height:100%;">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-block">
                     <h4 class="card-title">Edivator</h4>
 
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"></p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <small class="text-muted">Information</small>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Information</small>
+                        <small class="text-muted">width {{picture.getPictureObject().width}}%, height {{picture.getPictureObject().height}}%</small>
                     </div>
                 </div>
                 <div class="card">
@@ -79,7 +79,7 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Information</small>
+                        <small class="text-muted">Rotation {{picture.getPictureObject().rotation}}°</small>
                     </div>
                 </div>
                 <div class="card">
@@ -95,7 +95,7 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Information</small>
+                        <small class="text-muted">horiz. {{picture.getPictureObject().flippedHorizontal}}, vert. {{picture.getPictureObject().flippedVertical}}</small>
                     </div>
                 </div>
                 <div class="card">
@@ -113,7 +113,7 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Information</small>
+                        <small class="text-muted">l,r -{{picture.getPictureObject().offsetLeft}}% t,b -{{picture.getPictureObject().offsetTop}}%</small>
                     </div>
                 </div>
                 <div class="card">
@@ -127,7 +127,7 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Information</small>
+                        <small class="text-muted">Feeling Lucky = {{picture.getPictureObject().feelingLucky}}</small>
                     </div>
                 </div>
                 <div class="card">
@@ -144,7 +144,7 @@
         </div>
     </div>
     <div class="row">	<!-- Mittelteil -->
-        <div class = "col-sm-2">
+        <div class = "col-sm-2" style="background-color:white;">
             <div class="card">
                 <div class="card-block">
                     <h4 class="card-title">Undo or Repeat Changes</h4>
@@ -176,20 +176,23 @@
                 </div>
             </div>
         </div>
-        <div class = "col-sm-10">
-
+        <div class = "col-sm-10" style="background-color:#d2d2d2;">	<!-- Bild -->
+            <div id="PictureArea"></div>
         </div>
     </div>
-    <div class="row">	<!-- Fußzeile -->
+    <div class="row" >	<!-- Fußzeile -->
         <div class = "col-sm-12">
-
+            Fußzeile
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </div>
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
 <script src="js/Edivator.js"></script>
 <script src="js/EdivatorAngular.js"></script>
+
 </body>
 </html>
