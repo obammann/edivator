@@ -17,3 +17,15 @@
 dialog:target{
 	display: block;
 }
+
+.col-sm-12{
+	padding:0px;
+}
+
+.col-sm-10{
+	padding:0px;
+}
+
+.col-sm-2{
+	padding:0px;
+}
