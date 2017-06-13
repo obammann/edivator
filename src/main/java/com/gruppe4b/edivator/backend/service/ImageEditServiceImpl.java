@@ -71,4 +71,20 @@ public class ImageEditServiceImpl implements ImageEditService {
 
         return byteBuffer.array();
     }
+
+    public void resizeImage(String imageId, int percentage) {
+
+    }
+
+    public void flip(String imageId,boolean horizontal) {
+
+    }
+
+    public void turnLeft(String imageId) {
+
+    }
+
+    public void turnRight(String imageId) {
+
+    }
 }

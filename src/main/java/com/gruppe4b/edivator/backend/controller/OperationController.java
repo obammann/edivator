@@ -40,7 +40,6 @@ public class OperationController {
                      @RequestParam(value = "bottom", defaultValue = "0") int bottom,
                      @RequestParam(value = "left", defaultValue =  "0") int left,
                      @RequestParam(value = "right", defaultValue = "0") int right) {
-
     }
 
     @RequestMapping(path = "/image/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)
@@ -92,7 +91,4 @@ public class OperationController {
         // TODO: Send JSON-Response with the new id or redircect link
 
     }
-
-
-
 }
