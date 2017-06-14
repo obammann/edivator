@@ -124,61 +124,61 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         });
     };
 
-    this.rotateLeft = function() {
+    $scope.rotateLeft = function() {
         console.log("rotated Left");
         var url = "/image/" + $scope.imgId + "/rotate?left=true";
         this.callRouteAndActualize(url);
     };
 
-    this.rotateRight = function() {
+    $scope.rotateRight = function() {
         console.log("rotated Right");
         var url = "/image/" + $scope.imgId + "/rotate?left=true";
         this.callRouteAndActualize(url);
     };
 
-    this.flipHorizontal = function() {
+    $scope.flipHorizontal = function() {
         console.log("horizontal flipped");
         var url = "/image/" + $scope.imgId + "/flip?horizontal=true";
         this.callRouteAndActualize(url);
     }
 
-    this.flipVertical = function() {
+    $scope.flipVertical = function() {
         console.log("verticly flipped");
         var url = "/image/" + $scope.imgId + "/flip?horizontal=false";
         this.callRouteAndActualize(url);
     };
 
-    this.cropHeight = function() {
+    $scope.cropHeight = function() {
         console.log("height cropped");
         var url = "/image/" + $scope.imgId + "/crop?cropHeight=true";
         this.callRouteAndActualize(url);
     };
 
-    this.cropWidth = function() {
+    $scope.cropWidth = function() {
         console.log("width cropped");
         var url = "/image/" + $scope.imgId + "/crop?cropHeight=false";
         this.callRouteAndActualize(url);
     };
 
-    this.feelingLucky = function() {
+    $scope.feelingLucky = function() {
         console.log("luckyFilterApplied");
         var url = "/image/" + $scope.imgId + "/filter/feelinglucky";
         this.callRouteAndActualize(url);
     };
 
-    this.bigger = function () {
+    $scope.bigger = function () {
         console.log("img gets bigger");
         var url = "/image/" + $scope.imgId + "/resize?percentage=10";
         this.callRouteAndActualize(url);
     };
 
-    this.smaler = function () {
+    $scope.smaler = function () {
         console.log("image gets smaller");
         var url = "/image/" + $scope.imgId + "/resize?percentage=-10";
         this.callRouteAndActualize(url);
     };
 
-    this.callRouteAndActualize = function(url) {
+    $scope.callRouteAndActualize = function(url) {
         $http.put(url, {
             withCredentials: true,
             headers: {'Content-Type': undefined },
