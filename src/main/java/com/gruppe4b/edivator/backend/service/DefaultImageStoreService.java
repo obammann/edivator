@@ -1,5 +1,8 @@
 package com.gruppe4b.edivator.backend.service;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
@@ -18,6 +21,7 @@ public class DefaultImageStoreService implements ImageStoreService {
     protected final String bucket;
     protected final ImagesService imagesService;
     protected final GcsService gcsService;
+    protected final BlobstoreService blobstoreService;
 
     public DefaultImageStoreService(String bucket) {
         this.bucket = bucket;
@@ -28,6 +32,7 @@ public class DefaultImageStoreService implements ImageStoreService {
                 .retryMaxAttempts(2)
                 .totalRetryPeriodMillis(5000)
                 .build());
+        this.blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     }
 
     @Override
@@ -45,7 +50,9 @@ public class DefaultImageStoreService implements ImageStoreService {
 
     @Override
     public Image getImageFromCloudStorage(String name) {
-        return null;
+        BlobKey blobKey = blobstoreService.createGsBlobKey("/gs/" + bucket + "/" + name);
+        Image blobImage = ImagesServiceFactory.makeImageFromBlob(blobKey);
+        return blobImage;
     }
 
     @Override
