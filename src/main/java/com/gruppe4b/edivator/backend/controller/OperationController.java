@@ -82,7 +82,7 @@ public class OperationController {
 
     // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
     @RequestMapping(path = "/image", method = RequestMethod.POST)
-    public void uploadImage(HttpEntity<byte[]> requestEntity) {
+    public String uploadImage(HttpEntity<byte[]> requestEntity) {
 
         System.out.println("Request: Upload Image");
         byte[] payload = requestEntity.getBody();
@@ -90,14 +90,18 @@ public class OperationController {
 
         String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
 
+        String url = "No serving url...";
         try {
-            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+            url = imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
         } catch (IOException e) {
             e.printStackTrace();
             // TODO: handle Exception properly
+
         }
         // TODO: Send JSON-Response with the new id or redircect link (get_serving_url())
         // https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.api.images#Image_get_serving_url
-
+        System.out.println("URL: " + url);
+        Gson gson = new Gson();
+        return gson.toJson(url);
     }
 }

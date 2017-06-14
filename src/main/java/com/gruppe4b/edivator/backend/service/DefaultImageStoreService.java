@@ -3,6 +3,7 @@ package com.gruppe4b.edivator.backend.service;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.tools.cloudstorage.*;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class DefaultImageStoreService implements ImageStoreService {
     }
 
     @Override
-    public void writeImageToCloudStorage(Image image, String name) throws IOException {
+    public String writeImageToCloudStorage(Image image, String name) throws IOException {
         byte[] data = image.getImageData();
         // TODO: get the real MIME-Type from the data..
         gcsService.createOrReplace(
@@ -38,6 +39,8 @@ public class DefaultImageStoreService implements ImageStoreService {
                 new GcsFileOptions.Builder().mimeType("image/jpeg").build(),
                 ByteBuffer.wrap(data)
         );
+
+        return imagesService.getServingUrl(ServingUrlOptions.Builder.withGoogleStorageFileName("/gs/" + bucket + "/" + name));
     }
 
     @Override

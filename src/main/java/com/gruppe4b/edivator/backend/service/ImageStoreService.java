@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface ImageStoreService {
 
-    public void writeImageToCloudStorage(Image image, String name) throws IOException;
+    public String writeImageToCloudStorage(Image image, String name) throws IOException;
 
     public Image getImageFromCloudStorage(String name);
 
