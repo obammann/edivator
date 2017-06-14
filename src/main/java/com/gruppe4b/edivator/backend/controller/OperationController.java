@@ -1,5 +1,7 @@
 package com.gruppe4b.edivator.backend.controller;
 
+import com.google.appengine.api.images.Image;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -7,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
+import com.gruppe4b.edivator.backend.service.ImageEditService;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
@@ -25,6 +29,9 @@ import java.io.InputStream;
 @RestController
 public class OperationController {
 
+    @Autowired
+    ImageEditService imageEditService;
+
     @RequestMapping (path="/test/operationsrunning", method = RequestMethod.GET)
     public String testAnswer(){
         return  "Route kommt auch hier an.";
@@ -41,6 +48,9 @@ public class OperationController {
     public String resize(@PathVariable("imageId") int imageId,
                        @RequestParam(value = "width", required = true) int width,
                        @RequestParam(value = "height", required = true) int height) {
+        String img = "" + imageId;
+        imageEditService.resizeImage(img,10);
+                String x = "afsdas";
         return "Imagine you resized the image with id " + imageId + ".";
     }
 
@@ -50,7 +60,6 @@ public class OperationController {
                      @RequestParam(value = "bottom", defaultValue = "0") int bottom,
                      @RequestParam(value = "left", defaultValue =  "0") int left,
                      @RequestParam(value = "right", defaultValue = "0") int right) {
-
     }
 
     @RequestMapping(path = "/image/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)
@@ -85,7 +94,7 @@ public class OperationController {
 
     // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
     @RequestMapping(path = "/image", method = RequestMethod.POST)
-    public void uploadImage(HttpEntity<byte[]> requestEntity) {
+    public String uploadImage(HttpEntity<byte[]> requestEntity) {
 
         System.out.println("Request: Upload Image");
         byte[] payload = requestEntity.getBody();
@@ -93,15 +102,19 @@ public class OperationController {
 
         String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
 
+        String url = "No serving url...";
         try {
-            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+            url = imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
         } catch (IOException e) {
             e.printStackTrace();
             // TODO: handle Exception properly
+
         }
         // TODO: Send JSON-Response with the new id or redircect link (get_serving_url())
         // https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.api.images#Image_get_serving_url
-
+        System.out.println("URL: " + url);
+        Gson gson = new Gson();
+        return gson.toJson(url);
     }
 
 

@@ -1,17 +1,13 @@
 package com.gruppe4b.edivator.backend.service;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
-import com.google.appengine.tools.cloudstorage.GcsFileOptions;
-import com.google.appengine.tools.cloudstorage.GcsFilename;
-import com.google.appengine.tools.cloudstorage.GcsService;
-import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
-import com.google.appengine.tools.cloudstorage.RetryParams;
+import com.google.appengine.tools.cloudstorage.*;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
  * This Service-Implementation uses the Google Cloud Storage (not Google Datastore!) to store and load images

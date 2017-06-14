@@ -9,7 +9,9 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
@@ -29,7 +31,7 @@
 </head>
 
 <body style="background-color:#f7f7f9;">
-<div class="container-fluid" ng-controller="PictureCtrl">
+<div class="container-fluid" ng-controller="PictureCtrl as pctrl">
     <div class="row">	<!-- Kopfzeile -->
         <div class = "col-sm-2">
             <div class="card" style="height:100%;">
@@ -165,7 +167,7 @@
                 <div class="card-block">
                     <h4 class="card-title">Import or Export Image</h4>
                     <p class="card-text"></p>
-                    <button class="btn btn-primary" type="button" ng-click="picture.UploadDialog();">
+                    <button class="btn btn-primary" type="button" ng-click="pctrl.OpenUploadDialog();">
                         <i class="fa fa-upload" aria-hidden="true"></i>
                         Import
                     </button>
