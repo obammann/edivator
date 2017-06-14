@@ -38,13 +38,8 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         transformRequest: angular.identity
                     }).then(function (response) {
                         console.log(response);
-<<<<<<< HEAD
-                        $scope.imgId = response.data.id;
-                        console.log('successfull uploaded')
-=======
                         console.log('successfull uploaded');
                         ShowPicture(response.data.url);
->>>>>>> 69f34ef98e329e20aedbc6375aa09f709e2148a1
                     }).catch(function (data) {
                         console.log(data)
                     });
