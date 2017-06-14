@@ -33,17 +33,9 @@
 <body style="background-color:#f7f7f9;">
 <div class="container-fluid" ng-controller="PictureCtrl as pctrl">
     <div class="row">	<!-- Kopfzeile -->
-        <div class = "col-sm-2">
-            <div class="card" style="height:100%;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title">Edivator</h4>
-
-                    <p class="card-text"></p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Information</small>
-                </div>
+        <div class = "col-sm-2" style="background-color: white">
+            <div class="card" style="border-bottom-width: 0cm;border-left-width: 0cm; border-right-width: 0cm">
+                <img class="card-img-top" src="picture/EdivatorLogo.png" style="width:100%" alt="Card image cap">
             </div>
         </div>
         <div class = "col-sm-10">
@@ -60,6 +52,15 @@
                             <i class="fa fa-minus" aria-hidden="true"></i>
                             10%
                         </button>
+                        <br>
+                        <form>
+                            <div class="input-group">
+                                <input id="width" type="text" class="form-control" name="width" placeholder="width in px">
+                            </div>
+                            <div class="input-group">
+                                <input id="height" type="text" class="form-control" name="height" placeholder="height in px">
+                            </div>
+                        </form>
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
@@ -183,11 +184,12 @@
         </div>
     </div>
     <div class="row" >	<!-- Fußzeile -->
-        <div class = "col-sm-12">
-            Fußzeile
+        <div class = "col-sm-12" style="text-align: right">
+            <i class="fa fa-copyright" aria-hidden="true"></i>Edivator 2017
             <br>
-            <br>
-            <br>
+            <br>Hochschule Bremen
+            <br>University of Applied Scienes
+            <br>Masterproject: Cloud-Computing
         </div>
     </div>
 </div>
