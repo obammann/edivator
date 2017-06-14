@@ -8,12 +8,16 @@ import java.nio.channels.FileChannel;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.images.*;
+import com.google.appengine.repackaged.com.google.gson.Gson;
+import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.tools.cloudstorage.GcsFileOptions;
 import com.google.appengine.tools.cloudstorage.GcsFilename;
 import com.google.appengine.tools.cloudstorage.GcsService;
 import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
 import com.google.appengine.tools.cloudstorage.RetryParams;
+import com.gruppe4b.edivator.backend.domain.ImageResponse;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class ImageEditServiceImpl implements ImageEditService {
@@ -21,9 +25,11 @@ public class ImageEditServiceImpl implements ImageEditService {
     private final String bucket = "gruppe-4b.appspot.com";
 
     private final ImagesService imagesService;
+    private final ImageStoreService imageStoreService;
 
     public ImageEditServiceImpl() {
         imagesService = ImagesServiceFactory.getImagesService();
+        imageStoreService = new DefaultImageStoreService("edivator_image_store_europe");
     }
 
     private final GcsService gcsService = GcsServiceFactory.createGcsService(new RetryParams.Builder()
@@ -70,25 +76,27 @@ public class ImageEditServiceImpl implements ImageEditService {
         return byteBuffer.array();
     }
 
-    public int resizeImage(String imageId, int percentage) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image resizeImage = ImagesServiceFactory.makeImageFromBlob(key);
+    public String resizeImage(String imageId, int percentage) {
+        Image resizeImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         int origWidth = resizeImage.getWidth();
         int origHeight = resizeImage.getHeight();
         Transform transform = ImagesServiceFactory.makeResize(origWidth * percentage, origHeight * percentage);
         Image resizedImage = imagesService.applyTransform(transform, resizeImage);
 
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+        String id = new Integer( Math.abs(new Integer(resizedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(resizedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int flip(String imageId,boolean horizontal) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image flippingImage = ImagesServiceFactory.makeImageFromBlob(key);
+    public String flip(String imageId,boolean horizontal) {
+        Image flippingImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeHorizontalFlip();
         if (horizontal == true) {
@@ -97,76 +105,98 @@ public class ImageEditServiceImpl implements ImageEditService {
             transform = ImagesServiceFactory.makeVerticalFlip();
         }
         Image flippedImage = imagesService.applyTransform(transform, flippingImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(flippedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(flippedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int turnLeft(String imageId) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image turnImage = ImagesServiceFactory.makeImageFromBlob(key);
+    public String turnLeft(String imageId) {
+        Image turnImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeRotate(-90);
         Image turnedImage = imagesService.applyTransform(transform, turnImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(turnedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(turnedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int turnRight(String imageId) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image turnImage = ImagesServiceFactory.makeImageFromBlob(key);
+    public String turnRight(String imageId) {
+        Image turnImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeRotate(90);
         Image turnedImage = imagesService.applyTransform(transform, turnImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(turnedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(turnedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int cropHeight(String imageId) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image croppingImage = ImagesServiceFactory.makeImageFromBlob(key);
+    public String crop(String imageId, boolean cropHeight) {
+        Image croppingImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         int width = croppingImage.getWidth();
         int height = croppingImage.getHeight();
-        float crop = height * 10 / 100;
+        Transform transform = ImagesServiceFactory.makeCrop(0,0,0,0);
+        float crop = 0;
+        if (cropHeight) {
+            crop = height * 10 / 100;
+            transform = ImagesServiceFactory.makeCrop(crop,0,crop,0);
+        } else {
+            crop = width * 10 / 100;
+            transform = ImagesServiceFactory.makeCrop(0,crop,0,crop);
+        }
 
-        Transform transform = ImagesServiceFactory.makeCrop(0,crop,0,crop);
         Image croppedImage = imagesService.applyTransform(transform, croppingImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(croppedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(croppedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int cropWidth(String imageId) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image croppingImage = ImagesServiceFactory.makeImageFromBlob(key);
-
-        int width = croppingImage.getWidth();
-        int height = croppingImage.getHeight();
-        float crop = width * 10 / 100;
-
-        Transform transform = ImagesServiceFactory.makeCrop(crop,0,crop,0);
-        Image croppedImage = imagesService.applyTransform(transform, croppingImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
-    }
-
-    public int applyLuckyFilter(String imageId) {
-        //TODO: richtiges Image holen
-        BlobKey key = new BlobKey("xx");
-        Image filterImage = ImagesServiceFactory.makeImageFromBlob(key);
+    public String applyLuckyFilter(String imageId) {
+        Image filterImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeImFeelingLucky();
         Image filteredImage = imagesService.applyTransform(transform, filterImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(filteredImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(filteredImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
+    }
+
+    public ImageResponse createResponse(String url,String id) {
+        return new ImageResponse(url,id);
     }
 }

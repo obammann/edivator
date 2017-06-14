@@ -33,17 +33,9 @@
 <body style="background-color:#f7f7f9;">
 <div class="container-fluid" ng-controller="PictureCtrl as pctrl">
     <div class="row">	<!-- Kopfzeile -->
-        <div class = "col-sm-2">
-            <div class="card" style="height:100%;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title">Edivator</h4>
-
-                    <p class="card-text"></p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Information</small>
-                </div>
+        <div class = "col-sm-2" style="background-color: white">
+            <div class="card" style="border-bottom-width: 0cm;border-left-width: 0cm; border-right-width: 0cm">
+                <img class="card-img-top" src="EdivatorLogo.png" style="width:100%" alt="Card image cap">
             </div>
         </div>
         <div class = "col-sm-10">
@@ -52,14 +44,23 @@
                     <img class="card-img-top" src="svg/size.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Size</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.bigger();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="bigger();">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             10%
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.smaler();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="smaler();">
                             <i class="fa fa-minus" aria-hidden="true"></i>
                             10%
                         </button>
+                        <br>
+                        <form>
+                            <div class="input-group">
+                                <input id="width" type="text" class="form-control" name="width" placeholder="width in px">
+                            </div>
+                            <div class="input-group">
+                                <input id="height" type="text" class="form-control" name="height" placeholder="height in px">
+                            </div>
+                        </form>
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
@@ -70,11 +71,11 @@
                     <img class="card-img-top" src="svg/rotation.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Rotation</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.rotateLeft();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateLeft()">
                             <i class="fa fa-undo" aria-hidden="true"></i>
                             90°
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.rotateRight();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateRight();">
                             <i class="fa fa-repeat" aria-hidden="true"></i>
                             90°
                         </button>
@@ -88,10 +89,10 @@
                     <img class="card-img-top" src="svg/flip.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Flip</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.flipHorizontal();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="flipHorizontal();">
                             <i class="fa fa-arrows-v" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.flipVertical();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
                             <i class="fa fa-arrows-h" aria-hidden="true"></i>
                         </button>
                         <p class="card-text"></p>
@@ -104,11 +105,11 @@
                     <img class="card-img-top" src="svg/crop.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Crop</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.cropHeight();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight();">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
                             10%
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.cropWidth();">
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="cropWidth();">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(-45deg);"></i>
                             10%
                         </button>
@@ -122,7 +123,7 @@
                     <img class="card-img-top" src="svg/filter.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Filter</h4>
-                        <button class="btn btn-outline-primary btn-sm" style="width:100%;" type="button" ng-click="picture.feelingLucky();">
+                        <button class="btn btn-outline-primary btn-sm" style="width:100%;" type="button" ng-click="feelingLucky();">
                             <i class="fa fa-magic" aria-hidden="true"></i>
                             I'm feeling lucky
                         </button>
@@ -183,11 +184,12 @@
         </div>
     </div>
     <div class="row" >	<!-- Fußzeile -->
-        <div class = "col-sm-12">
-            Fußzeile
+        <div class = "col-sm-12" style="text-align: right">
+            <i class="fa fa-copyright" aria-hidden="true"></i>Edivator 2017
             <br>
-            <br>
-            <br>
+            <br>Hochschule Bremen
+            <br>University of Applied Scienes
+            <br>Masterproject: Cloud-Computing
         </div>
     </div>
 </div>

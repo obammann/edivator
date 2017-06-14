@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.joda.time.DateTime;
+import com.gruppe4b.edivator.backend.domain.ImageResponse;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
 import com.gruppe4b.edivator.backend.service.ImageEditService;
 import org.apache.commons.io.IOUtils;
@@ -39,32 +40,38 @@ public class OperationController {
 
 
     @RequestMapping(path = "/image/{imageId}/flip", method = RequestMethod.PUT)
-    public String flip(@PathVariable("imageId") int imageId,
+    public String flip(@PathVariable("imageId") String imageId,
                      @RequestParam(value = "horizontal", defaultValue = "false") boolean horizontal) {
-        return "Imagine you flipped the image with id " + imageId + " " + (horizontal ? "horizontally" : "vertically") + ".";
+        return imageEditService.flip(imageId,horizontal);
+    }
+
+    @RequestMapping(path = "/image/{imageId}/rotate", method = RequestMethod.PUT)
+    public String rotate(@PathVariable("imageId") String imageId,
+                         @RequestParam(value = "left", defaultValue = "false") boolean left) {
+        String response = "Error";
+        if(left) {
+            response = imageEditService.turnLeft(imageId);
+        } else {
+            response = imageEditService.turnRight(imageId);
+        }
+        return response;
     }
 
     @RequestMapping(path = "/image/{imageId}/resize", method = RequestMethod.PUT)
-    public String resize(@PathVariable("imageId") int imageId,
-                       @RequestParam(value = "width", required = true) int width,
-                       @RequestParam(value = "height", required = true) int height) {
-        String img = "" + imageId;
-        imageEditService.resizeImage(img,10);
-                String x = "afsdas";
-        return "Imagine you resized the image with id " + imageId + ".";
+    public String resize(@PathVariable("imageId") String imageId,
+                       @RequestParam(value = "percentage", required = true) int percantage) {
+        return imageEditService.resizeImage(imageId,percantage);
     }
 
     @RequestMapping(path = "/image/{imageId}/crop", method = RequestMethod.PUT)
-    public void crop(@PathVariable("imageId") int imageId,
-                     @RequestParam(value = "top", defaultValue = "0") int top,
-                     @RequestParam(value = "bottom", defaultValue = "0") int bottom,
-                     @RequestParam(value = "left", defaultValue =  "0") int left,
-                     @RequestParam(value = "right", defaultValue = "0") int right) {
+    public String crop(@PathVariable("imageId") String imageId,
+                     @RequestParam(value = "cropHeight", defaultValue = "false") boolean height) {
+        return imageEditService.crop(imageId,height);
     }
 
     @RequestMapping(path = "/image/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)
-    public void feelingLuckyFilter(@PathVariable("imageId") int imageId) {
-
+    public String feelingLuckyFilter(@PathVariable("imageId") String imageId) {
+        return imageEditService.applyLuckyFilter(imageId);
     }
 
     @RequestMapping(path = "/imagetest")
@@ -112,9 +119,9 @@ public class OperationController {
         }
         // TODO: Send JSON-Response with the new id or redircect link (get_serving_url())
         // https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.api.images#Image_get_serving_url
-        System.out.println("URL: " + url);
+        ImageResponse response = new ImageResponse(url,new_image_id);
         Gson gson = new Gson();
-        return gson.toJson(url);
+        return gson.toJson(response);
     }
 
 
