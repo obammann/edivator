@@ -128,13 +128,35 @@ function PictureFactory_reset(){
     newVersion();
 }
 
-function PictureFactory_UploadDialog(){
+function PictureFactory_UploadDialog($http){
     var img;
+    var file;
 
     var uploadButton = {
         label: 'Upload',
         className: "Button-Upload",
         callback: function() {
+            var reader = new FileReader();
+
+            reader.onloadend = function(e) {
+                var data = e.target.result;
+
+                // https://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
+                var uploadUrl = "/image"
+                $http.post(uploadUrl, data, {
+                    withCredentials: true,
+                    headers: {'Content-Type': undefined },
+                    transformRequest: angular.identity
+                }).then(function (response) {
+                    console.log('successfull uploaded')
+                }).catch(function (data) {
+                    console.log(data)
+                });
+            }
+
+            reader.readAsArrayBuffer(file);
+
+
             picture = img;
             picture.style.width = "auto";
             dialog.modal('hide');
@@ -183,7 +205,7 @@ function PictureFactory_UploadDialog(){
 
     fileInput.addEventListener('change', function(e) {
 
-        var file = fileInput.files[0];
+        file = fileInput.files[0];
         var imageType = /image.*/;
 
         if (file.type.match(imageType)) {

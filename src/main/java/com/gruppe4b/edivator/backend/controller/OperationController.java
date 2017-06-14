@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 public class OperationController {
@@ -52,20 +58,49 @@ public class OperationController {
 
     }
 
-    // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
+    @RequestMapping(path = "/imagetest")
+    public String testImage() {
 
-    @RequestMapping(path = "/image/", method = RequestMethod.POST)
+        System.out.println("Upload requested.");
+        // byte[] payload = requestEntity.getBody();
+
+        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
+
+
+        Resource resource = new ClassPathResource("garfield.jpg");
+        try {
+            InputStream resourceInputStream = resource.getInputStream();
+
+            byte[] bytes = IOUtils.toByteArray(resourceInputStream);
+            System.out.println("Image: " + bytes);
+            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(bytes), "Uploaded_Garfield.jpg");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Imagetest:" + DateTime.now();
+
+    }
+
+
+    // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
+    @RequestMapping(path = "/image", method = RequestMethod.POST)
     public void uploadImage(HttpEntity<byte[]> requestEntity) {
 
+        System.out.println("Request: Upload Image");
         byte[] payload = requestEntity.getBody();
+        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
 
-        DefaultImageStoreService imageStore = new DefaultImageStoreService("gruppe4b"); // TODO: use DI
+        String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
 
-        String new_image_id = new Integer(payload.hashCode() + DateTime.now().hashCode()).toString();
-
-      //  imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
-
-        // TODO: Send JSON-Response with the new id or redircect link
+        try {
+            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // TODO: handle Exception properly
+        }
+        // TODO: Send JSON-Response with the new id or redircect link (get_serving_url())
+        // https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.api.images#Image_get_serving_url
 
     }
 
