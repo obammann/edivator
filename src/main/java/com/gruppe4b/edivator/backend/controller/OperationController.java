@@ -1,5 +1,6 @@
 package com.gruppe4b.edivator.backend.controller;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
@@ -76,8 +77,30 @@ public class OperationController {
 
         MultipartFile file=request.getFile(itr.next());
 
+
         String fileName=file.getOriginalFilename();
         System.out.println(fileName);
+
+        byte[] payload = new byte[0];
+        try {
+            payload = file.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
+
+        String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+
+        String url = "No serving url...";
+        try {
+            url = imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // TODO: handle Exception properly
+
+        }
+
+        System.out.println(url);
     }
 
 }

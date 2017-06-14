@@ -1,12 +1,12 @@
 package com.gruppe4b.edivator.backend.service;
 
-import com.google.appengine.api.images.Image;
-
 import java.io.IOException;
+
+import com.google.appengine.api.images.Image;
 
 public interface ImageStoreService {
 
-    public void writeImageToCloudStorage(Image image, String name) throws IOException;
+    public String writeImageToCloudStorage(Image image, String name) throws IOException;
 
     public Image getImageFromCloudStorage(String name);
 
