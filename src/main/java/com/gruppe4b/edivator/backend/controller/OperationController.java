@@ -1,10 +1,19 @@
 package com.gruppe4b.edivator.backend.controller;
 
-import com.google.appengine.api.images.Image;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
 import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @RestController
 public class OperationController {
@@ -60,5 +69,15 @@ public class OperationController {
     }
 
 
+    @RequestMapping(path="/newDocument", consumes = {"multipart/form-data"}, method = RequestMethod.POST)
+    public void UploadFile(MultipartHttpServletRequest request, HttpServletResponse response) {
+
+        Iterator<String> itr=request.getFileNames();
+
+        MultipartFile file=request.getFile(itr.next());
+
+        String fileName=file.getOriginalFilename();
+        System.out.println(fileName);
+    }
 
 }
