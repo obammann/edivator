@@ -37,7 +37,8 @@ public class OperationController {
     public String resize(@PathVariable("imageId") int imageId,
                        @RequestParam(value = "width", required = true) int width,
                        @RequestParam(value = "height", required = true) int height) {
-        imageEditService.resizeImage(imageId,10);
+        String img = "" + imageId;
+        imageEditService.resizeImage(img,10);
                 String x = "afsdas";
         return "Imagine you resized the image with id " + imageId + ".";
     }
