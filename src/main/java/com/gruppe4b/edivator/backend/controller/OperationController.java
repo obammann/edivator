@@ -1,9 +1,12 @@
 package com.gruppe4b.edivator.backend.controller;
 
 import com.google.appengine.api.images.Image;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
+import com.gruppe4b.edivator.backend.service.ImageEditService;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
@@ -14,6 +17,9 @@ import java.io.InputStream;
 
 @RestController
 public class OperationController {
+
+    @Autowired
+    ImageEditService imageEditService;
 
     @RequestMapping (path="/test/operationsrunning", method = RequestMethod.GET)
     public String testAnswer(){
@@ -31,6 +37,8 @@ public class OperationController {
     public String resize(@PathVariable("imageId") int imageId,
                        @RequestParam(value = "width", required = true) int width,
                        @RequestParam(value = "height", required = true) int height) {
+        imageEditService.resizeImage(imageId,10);
+                String x = "afsdas";
         return "Imagine you resized the image with id " + imageId + ".";
     }
 

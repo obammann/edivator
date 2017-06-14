@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import com.google.appengine.api.images.Image;
-import com.google.appengine.api.images.ImagesService;
-import com.google.appengine.api.images.ImagesServiceFactory;
-import com.google.appengine.api.images.Transform;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.images.*;
 import com.google.appengine.tools.cloudstorage.GcsFileOptions;
 import com.google.appengine.tools.cloudstorage.GcsFilename;
 import com.google.appengine.tools.cloudstorage.GcsService;
@@ -72,19 +70,103 @@ public class ImageEditServiceImpl implements ImageEditService {
         return byteBuffer.array();
     }
 
-    public void resizeImage(String imageId, int percentage) {
+    public int resizeImage(String imageId, int percentage) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image resizeImage = ImagesServiceFactory.makeImageFromBlob(key);
 
+        int origWidth = resizeImage.getWidth();
+        int origHeight = resizeImage.getHeight();
+        Transform transform = ImagesServiceFactory.makeResize(origWidth * percentage, origHeight * percentage);
+        Image resizedImage = imagesService.applyTransform(transform, resizeImage);
+
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
     }
 
-    public void flip(String imageId,boolean horizontal) {
+    public int flip(String imageId,boolean horizontal) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image resizeImage = ImagesServiceFactory.makeImageFromBlob(key);
 
+        Transform transform;
+        if (horizontal == true) {
+            transform = ImagesServiceFactory.makeHorizontalFlip();
+        } else if (horizontal == false) {
+            transform = ImagesServiceFactory.makeVerticalFlip();
+        }
+        Image flippedImage = imagesService.applyTransform(transform, flippingImage);
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
     }
 
-    public void turnLeft(String imageId) {
+    public int turnLeft(String imageId) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image turnImage = ImagesServiceFactory.makeImageFromBlob(key);
 
+        Transform transform = ImagesServiceFactory.makeRotate(-90);
+        Image turnedImage = imagesService.applyTransform(transform, turnImage);
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
     }
 
-    public void turnRight(String imageId) {
+    public int turnRight(String imageId) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image turnImage = ImagesServiceFactory.makeImageFromBlob(key);
 
+        Transform transform = ImagesServiceFactory.makeRotate(90);
+        Image turnedImage = imagesService.applyTransform(transform, turnImage);
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
+    }
+
+    public int cropHeight(String imageId) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image croppingImage = ImagesServiceFactory.makeImageFromBlob(key);
+
+        int width = croppingImage.getWidth();
+        int height = croppingImage.getHeight();
+        float crop = height * 10 / 100;
+
+        Transform transform = ImagesServiceFactory.makeCrop(0,crop,0,crop);
+        Image croppedImage = imagesService.applyTransform(transform, croppingImage);
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
+    }
+
+    public int cropWidth(String imageId) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image croppingImage = ImagesServiceFactory.makeImageFromBlob(key);
+
+        int width = croppingImage.getWidth();
+        int height = croppingImage.getHeight();
+        float crop = width * 10 / 100;
+
+        Transform transform = ImagesServiceFactory.makeCrop(crop,0,crop,0);
+        Image croppedImage = imagesService.applyTransform(transform, croppingImage);
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
+    }
+
+    public int applyLuckyFilter(String imageId) {
+        //TODO: richtiges Image holen
+        BlobKey key = new BlobKey("xx");
+        Image filterImage = ImagesServiceFactory.makeImageFromBlob(key);
+
+        Transform transform = ImagesServiceFactory.makeImFeelingLucky();
+        Image filteredImage = imagesService.applyTransform(transform, filterImage);
+        //TODO: Image speichern und neue ID zurückgeben
+        int newId = 0; //Ersetzen!
+        return newId;
     }
 }
