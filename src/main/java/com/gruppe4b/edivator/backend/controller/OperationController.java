@@ -83,8 +83,9 @@ public class OperationController {
 
         String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
 
+        String url = "No serving url...";
         try {
-            return imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+            url = imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
         } catch (IOException e) {
             e.printStackTrace();
             // TODO: handle Exception properly
@@ -92,7 +93,8 @@ public class OperationController {
         }
         // TODO: Send JSON-Response with the new id or redircect link (get_serving_url())
         // https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.api.images#Image_get_serving_url
-        return "";
+        System.out.println("URL: " + url);
+        return url;
     }
 
 
