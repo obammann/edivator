@@ -70,28 +70,28 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         var options = {
             message: ''+
             '<div class="container-fluid">'+
-            '<div class="row">'+
-            '<div class="col-sm-7">'+
-            '<div>'+
-            'Select an image file from Disk: '+
-            '<input type="file" id="fileInput">'+
-            '</div>'+
-            '<br>'+
-            '<div>'+
-            'Select an image file from url: '+
-            '<input type="text" id="fileInputUrl">'+
-            '</div>'+
-            '</div>'+
-            '<div class="col-sm-5">'+
-            '<div id="fileDisplayArea"></div>'+
-            '</div>'+
-            '</div>'+
+                '<div class="row">'+
+                    '<div class="col-sm-7">'+
+                        '<div>'+
+                            'Select an image file from Disk: '+
+                            '<input type="file" id="fileInput">'+
+                        '</div>'+
+                        '<br>'+
+                        '<div>'+
+                            'Select an image file from url: '+
+                            '<input type="text" id="fileInputUrl">'+
+                        '</div>'+
+                    '</div>'+
+                    '<div class="col-sm-5">'+
+                        '<div id="fileDisplayArea"></div>'+
+                    '</div>'+
+                '</div>'+
             '</div>',
             title: "Upload",
             callback: function(){},
             onEscape: false,
             backdrop: true,
-            closeButton: true,
+            closeButton: false,
             animate: true,
             size: "medium",
             buttons: {uploadButton, cancelButton}
