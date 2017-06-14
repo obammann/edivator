@@ -320,3 +320,21 @@ function getDataUri(url, callback) {
 
     image.src = url;
 }
+
+function ShowLoading(){
+    var html=''+
+        '<div class="loading">'+
+        'Loading...<br>'+
+        '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>'+
+        '</div>';
+
+    var ImageSection = document.getElementById("PictureArea");
+    ImageSection.innerHTML = html;
+}
+
+function ShowPicture(url){
+    var html='<img src="'+url+'">';
+
+    var ImageSection = document.getElementById("PictureArea");
+    ImageSection.innerHTML = html;
+}
