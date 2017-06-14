@@ -34,22 +34,23 @@ public class OperationController {
         return "Imagine you flipped the image with id " + imageId + " " + (horizontal ? "horizontally" : "vertically") + ".";
     }
 
+    @RequestMapping(path = "/image/{imageId}/rotate", method = RequestMethod.PUT)
+    public String rotate(@PathVariable("imageId") int imageId,
+                         @RequestParam(value = "left", defaultValue = "false") boolean left) {
+        return "rotated";
+    }
+
     @RequestMapping(path = "/image/{imageId}/resize", method = RequestMethod.PUT)
     public String resize(@PathVariable("imageId") int imageId,
-                       @RequestParam(value = "width", required = true) int width,
-                       @RequestParam(value = "height", required = true) int height) {
+                       @RequestParam(value = "percentage", required = true) int percantage) {
         String img = "" + imageId;
-        imageEditService.resizeImage(img,10);
-                String x = "afsdas";
+        imageEditService.resizeImage(img,percantage);
         return "Imagine you resized the image with id " + imageId + ".";
     }
 
     @RequestMapping(path = "/image/{imageId}/crop", method = RequestMethod.PUT)
     public void crop(@PathVariable("imageId") int imageId,
-                     @RequestParam(value = "top", defaultValue = "0") int top,
-                     @RequestParam(value = "bottom", defaultValue = "0") int bottom,
-                     @RequestParam(value = "left", defaultValue =  "0") int left,
-                     @RequestParam(value = "right", defaultValue = "0") int right) {
+                     @RequestParam(value = "cropHeight", defaultValue = "false") boolean height) {
     }
 
     @RequestMapping(path = "/image/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)

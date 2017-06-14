@@ -15,8 +15,7 @@ public interface ImageEditService {
     public int flip(String imageId,boolean horizontal);
     public int turnLeft(String imageId);
     public int turnRight(String imageId);
-    public int cropHeight(String imageId);
-    public int cropWidth(String imageId);
+    public int crop(String imageId, boolean cropHeight);
     public int applyLuckyFilter(String imageId);
 
 }

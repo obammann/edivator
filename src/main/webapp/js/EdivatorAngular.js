@@ -7,15 +7,6 @@ EdivatorModul.factory('Picture', function() {
     return {
         back: function() {PictureFactory_changeVersion(-1);},
         forward: function() {PictureFactory_changeVersion(1);},
-        rotateLeft: function() {PictureFactory_rotate(-90);},
-        rotateRight: function() {PictureFactory_rotate(90);},
-        flipHorizontal: function() {PictureFactory_flip("h");},
-        flipVertical: function() {PictureFactory_flip("v");},
-        cropHeight: function() {PictureFactory_crop(10, 10, 0, 0);},
-        cropWidth: function() {PictureFactory_crop(0, 0, 10, 10);},
-        feelingLucky: function() {PictureFactory_Filter("FeelingLucky");},
-        bigger: function() {PictureFactory_resize(10, 10);},
-        smaler: function() {PictureFactory_resize(-10, -10);},
         resetPic: function() {PictureFactory_reset();},
         UploadDialog: function() {},
         ExportDialog: function() {PictureFactory_ExportDialog();},
@@ -25,6 +16,7 @@ EdivatorModul.factory('Picture', function() {
 
 EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     $scope.picture = Picture;
+    $scope.imgId = 0;
     this.OpenUploadDialog = function () {
         var img;
         var file;
@@ -45,12 +37,13 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         headers: {'Content-Type': undefined },
                         transformRequest: angular.identity
                     }).then(function (response) {
-                        console.log(response)
+                        console.log(response);
+                        $scope.imgId = response.data.id;
                         console.log('successfull uploaded')
                     }).catch(function (data) {
                         console.log(data)
                     });
-                }
+                };
 
                 reader.readAsArrayBuffer(file);
 
@@ -67,6 +60,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
             className: "Button-Cancel",
             callback: function() {dialog.modal('hide');}
         };
+
         var options = {
             message: ''+
             '<div class="container-fluid">'+
@@ -127,5 +121,74 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                 fileDisplayArea.innerHTML = "File not supported!";
             }
         });
+    };
+
+    this.rotateLeft = function() {
+        console.log("rotated Left");
+        var url = "/image/" + $scope.imgId + "/rotate?left=true";
+        this.callRouteAndActualize(url);
+    };
+
+    this.rotateRight = function() {
+        console.log("rotated Right");
+        var url = "/image/" + $scope.imgId + "/rotate?left=true";
+        this.callRouteAndActualize(url);
+    };
+
+    this.flipHorizontal = function() {
+        console.log("horizontal flipped");
+        var url = "/image/" + $scope.imgId + "/flip?horizontal=true";
+        this.callRouteAndActualize(url);
     }
+
+    this.flipVertical = function() {
+        console.log("verticly flipped");
+        var url = "/image/" + $scope.imgId + "/flip?horizontal=false";
+        this.callRouteAndActualize(url);
+    };
+
+    this.cropHeight = function() {
+        console.log("height cropped");
+        var url = "/image/" + $scope.imgId + "/crop?cropHeight=true";
+        this.callRouteAndActualize(url);
+    };
+
+    this.cropWidth = function() {
+        console.log("width cropped");
+        var url = "/image/" + $scope.imgId + "/crop?cropHeight=false";
+        this.callRouteAndActualize(url);
+    };
+
+    this.feelingLucky = function() {
+        console.log("luckyFilterApplied");
+        var url = "/image/" + $scope.imgId + "/filter/feelinglucky";
+        this.callRouteAndActualize(url);
+    };
+
+    this.bigger = function () {
+        console.log("img gets bigger");
+        var url = "/image/" + $scope.imgId + "/resize?percentage=10";
+        this.callRouteAndActualize(url);
+    };
+
+    this.smaler = function () {
+        console.log("image gets smaller");
+        var url = "/image/" + $scope.imgId + "/resize?percentage=-10";
+        this.callRouteAndActualize(url);
+    };
+
+    this.callRouteAndActualize = function(url) {
+        $http.put(url, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        }).then(function (response) {
+            console.log(response);
+            $scope.imgId = response.data.id;
+            console.log('successfull uploaded')
+        }).catch(function (data) {
+            console.log(data)
+        });
+    }
+
 });
