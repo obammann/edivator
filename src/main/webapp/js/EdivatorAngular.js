@@ -39,6 +39,8 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                     }).then(function (response) {
                         console.log(response);
                         console.log('successfull uploaded');
+                        $scope.imgId = response.data.id;
+                        console.log($scope.imgId);
                         ShowPicture(response.data.url);
                     }).catch(function (data) {
                         console.log(data)
@@ -126,6 +128,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.rotateLeft = function() {
         console.log("rotated Left");
+        console.log($scope.imgId);
         var url = "/image/" + $scope.imgId + "/rotate?left=true";
         this.callRouteAndActualize(url);
     };
@@ -186,7 +189,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         }).then(function (response) {
             console.log(response);
             $scope.imgId = response.data.id;
-            console.log('successfull uploaded')
+            ShowPicture(response.data.url);
         }).catch(function (data) {
             console.log(data)
         });

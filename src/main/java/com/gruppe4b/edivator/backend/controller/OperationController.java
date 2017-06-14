@@ -29,33 +29,38 @@ public class OperationController {
 
 
     @RequestMapping(path = "/image/{imageId}/flip", method = RequestMethod.PUT)
-    public String flip(@PathVariable("imageId") int imageId,
+    public String flip(@PathVariable("imageId") String imageId,
                      @RequestParam(value = "horizontal", defaultValue = "false") boolean horizontal) {
-        return "Imagine you flipped the image with id " + imageId + " " + (horizontal ? "horizontally" : "vertically") + ".";
+        return imageEditService.flip(imageId,horizontal);
     }
 
     @RequestMapping(path = "/image/{imageId}/rotate", method = RequestMethod.PUT)
-    public String rotate(@PathVariable("imageId") int imageId,
+    public String rotate(@PathVariable("imageId") String imageId,
                          @RequestParam(value = "left", defaultValue = "false") boolean left) {
-        return "rotated";
+        String response = "Error";
+        if(left) {
+            response = imageEditService.turnLeft(imageId);
+        } else {
+            response = imageEditService.turnRight(imageId);
+        }
+        return response;
     }
 
     @RequestMapping(path = "/image/{imageId}/resize", method = RequestMethod.PUT)
-    public String resize(@PathVariable("imageId") int imageId,
+    public String resize(@PathVariable("imageId") String imageId,
                        @RequestParam(value = "percentage", required = true) int percantage) {
-        String img = "" + imageId;
-        imageEditService.resizeImage(img,percantage);
-        return "Imagine you resized the image with id " + imageId + ".";
+        return imageEditService.resizeImage(imageId,percantage);
     }
 
     @RequestMapping(path = "/image/{imageId}/crop", method = RequestMethod.PUT)
-    public void crop(@PathVariable("imageId") int imageId,
+    public String crop(@PathVariable("imageId") String imageId,
                      @RequestParam(value = "cropHeight", defaultValue = "false") boolean height) {
+        return imageEditService.crop(imageId,height);
     }
 
     @RequestMapping(path = "/image/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)
-    public void feelingLuckyFilter(@PathVariable("imageId") int imageId) {
-
+    public String feelingLuckyFilter(@PathVariable("imageId") String imageId) {
+        return imageEditService.applyLuckyFilter(imageId);
     }
 
     @RequestMapping(path = "/imagetest")

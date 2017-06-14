@@ -8,14 +8,16 @@ import java.nio.channels.FileChannel;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.images.*;
+import com.google.appengine.repackaged.com.google.gson.Gson;
+import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.tools.cloudstorage.GcsFileOptions;
 import com.google.appengine.tools.cloudstorage.GcsFilename;
 import com.google.appengine.tools.cloudstorage.GcsService;
 import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
 import com.google.appengine.tools.cloudstorage.RetryParams;
+import com.gruppe4b.edivator.backend.domain.ImageResponse;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
 
 @Service
 public class ImageEditServiceImpl implements ImageEditService {
@@ -74,7 +76,7 @@ public class ImageEditServiceImpl implements ImageEditService {
         return byteBuffer.array();
     }
 
-    public int resizeImage(String imageId, int percentage) {
+    public String resizeImage(String imageId, int percentage) {
         Image resizeImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         int origWidth = resizeImage.getWidth();
@@ -82,12 +84,18 @@ public class ImageEditServiceImpl implements ImageEditService {
         Transform transform = ImagesServiceFactory.makeResize(origWidth * percentage, origHeight * percentage);
         Image resizedImage = imagesService.applyTransform(transform, resizeImage);
 
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+        String id = new Integer( Math.abs(new Integer(resizedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(resizedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int flip(String imageId,boolean horizontal) {
+    public String flip(String imageId,boolean horizontal) {
         Image flippingImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeHorizontalFlip();
@@ -97,32 +105,53 @@ public class ImageEditServiceImpl implements ImageEditService {
             transform = ImagesServiceFactory.makeVerticalFlip();
         }
         Image flippedImage = imagesService.applyTransform(transform, flippingImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(flippedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(flippedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int turnLeft(String imageId) {
+    public String turnLeft(String imageId) {
         Image turnImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeRotate(-90);
         Image turnedImage = imagesService.applyTransform(transform, turnImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(turnedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(turnedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int turnRight(String imageId) {
+    public String turnRight(String imageId) {
         Image turnImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeRotate(90);
         Image turnedImage = imagesService.applyTransform(transform, turnImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(turnedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(turnedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int crop(String imageId, boolean cropHeight) {
+    public String crop(String imageId, boolean cropHeight) {
         Image croppingImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         int width = croppingImage.getWidth();
@@ -138,18 +167,36 @@ public class ImageEditServiceImpl implements ImageEditService {
         }
 
         Image croppedImage = imagesService.applyTransform(transform, croppingImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(croppedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(croppedImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
     }
 
-    public int applyLuckyFilter(String imageId) {
+    public String applyLuckyFilter(String imageId) {
         Image filterImage = imageStoreService.getImageFromCloudStorage(imageId);
 
         Transform transform = ImagesServiceFactory.makeImFeelingLucky();
         Image filteredImage = imagesService.applyTransform(transform, filterImage);
-        //TODO: Image speichern und neue ID zurückgeben
-        int newId = 0; //Ersetzen!
-        return newId;
+
+        String id = new Integer( Math.abs(new Integer(filteredImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
+        String url = "exception";
+        try {
+            url = imageStoreService.writeImageToCloudStorage(filteredImage, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        return gson.toJson(createResponse(url,id));
+    }
+
+    public ImageResponse createResponse(String url,String id) {
+        return new ImageResponse(url,id);
     }
 }
