@@ -45,6 +45,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         headers: {'Content-Type': undefined },
                         transformRequest: angular.identity
                     }).then(function (response) {
+                        console.log(response)
                         console.log('successfull uploaded')
                     }).catch(function (data) {
                         console.log(data)
