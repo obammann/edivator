@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html ng-app="Edivator">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +8,13 @@
     <title>Edivator</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
@@ -21,160 +25,174 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="Edivator.css">
+
 </head>
 
-<body>
-<div class="container-fluid" style="height:100%;" ng-controller="PictureCtrl as pctrl">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button class="btn btn-default" type="button">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    Home
-                </button>
-                <button class="btn btn-default" type="button">
-                    <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                    Help
-                </button>
-                <button class="btn btn-default" type="button">
-                    <i class="fa fa-info" aria-hidden="true"></i>
-                    Impressum
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="row Navigation">
-        <div class="col-sm-2">
+<body style="background-color:#f7f7f9;">
+<div class="container-fluid" ng-controller="PictureCtrl as pctrl">
+    <div class="row">	<!-- Kopfzeile -->
+        <div class = "col-sm-2">
+            <div class="card" style="height:100%;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Edivator</h4>
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="pctrl.OpenUploadDialog();">
-                            <i class="fa fa-upload" aria-hidden="true"></i>
-                            Upload Picture
-                        </button>
-                    </div>
+                    <p class="card-text"></p>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.ExportDialog();">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                            Export Picture
-                        </button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        Breite = {{picture.getPictureObject().width}}%<br>
-                        Höhe = {{picture.getPictureObject().height}}%<br>
-                        Rotation = {{picture.getPictureObject().rotation}}°<br>
-                        Horizontal gespiegelt = {{picture.getPictureObject().flippedHorizontal}}<br>
-                        Vertikal gespiegelt = {{picture.getPictureObject().flippedVertical}}<br>
-                        Prozent abschneiden Links = {{picture.getPictureObject().offsetLeft}}%<br>
-                        Prozent abschnieden Rechts = {{picture.getPictureObject().offsetRight}}%<br>
-                        Prozent abschneiden Oben = {{picture.getPictureObject().offsetTop}}%<br>
-                        Prozent abschneiden unten = {{picture.getPictureObject().offsetBottom}}%<br>
-                        Feeling Lucky Filter = {{picture.getPictureObject().feelingLucky}}<br>
-                        Zielformat = .{{picture.getPictureObject().format}}<br>
-                        Ziel = {{picture.getPictureObject().target}}
-                    </div>
+                <div class="card-footer">
+                    <small class="text-muted">Information</small>
                 </div>
             </div>
-
         </div>
-
-        <div class="col-sm-10" style="height:100%; background-color:grey;">
-
-            <div class="container-fluid">
-                <div class="row" style="background-color:white;">
-                    <div class="col-sm-12">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-default" type="button" ng-click="picture.back();">
-                                <i class="fa fa-reply" aria-hidden="true"></i>
-                                Back
-                            </button>
-                            <button class="btn btn-default" type="button" ng-click="picture.forward();">
-                                <i class="fa fa-share" aria-hidden="true"></i>
-                                Forwart
-                            </button>
-                            <button class="btn btn-default" type="button" ng-click="picture.resetPic();">
-                                <i class="fa fa-eraser" aria-hidden="true"></i>
-                                Reset
-                            </button>
-                        </div>
+        <div class = "col-sm-10">
+            <div class="card-group">
+                <div class="card">
+                    <img class="card-img-top" src="svg/size.svg" alt="Card image cap" style="width:100%;">
+                    <div class="card-block">
+                        <h4 class="card-title">Size</h4>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.bigger();">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            10%
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.smaler();">
+                            <i class="fa fa-minus" aria-hidden="true"></i>
+                            10%
+                        </button>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">width {{picture.getPictureObject().width}}%, height {{picture.getPictureObject().height}}%</small>
                     </div>
                 </div>
-                <div class="row" style="background-color:white;">
-                    <div class="col-sm-3">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-default" style="width:50%;" type="button" ng-click="picture.bigger();">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                Vergrößern
-                            </button>
-                            <button class="btn btn-default" style="width:50%;" type="button" ng-click="picture.smaler();">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                Verkleinern
-                            </button>
-                        </div>
+                <div class="card">
+                    <img class="card-img-top" src="svg/rotation.svg" alt="Card image cap" style="width:100%;">
+                    <div class="card-block">
+                        <h4 class="card-title">Rotation</h4>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.rotateLeft();">
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                            90°
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.rotateRight();">
+                            <i class="fa fa-repeat" aria-hidden="true"></i>
+                            90°
+                        </button>
+                        <p class="card-text"></p>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-default" style="width:50%;" type="button" ng-click="picture.rotateLeft();">
-                                <i class="fa fa-undo" aria-hidden="true"></i>
-                                90° left
-                            </button>
-                            <button class="btn btn-default" style="width:50%;" type="button" ng-click="picture.rotateRight();">
-                                <i class="fa fa-repeat" aria-hidden="true"></i>
-                                90° right
-                            </button>
-                        </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Rotation {{picture.getPictureObject().rotation}}°</small>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                            <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.flipHorizontal();">
-                                <i class="fa fa-arrows-v" aria-hidden="true"></i>
-                                Flip hirozontal
-                            </button>
-                            <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.flipVertical();">
-                                <i class="fa fa-arrows-h" aria-hidden="true"></i>
-                                Flip vertical
-                            </button>
-                        </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="svg/flip.svg" alt="Card image cap" style="width:100%;">
+                    <div class="card-block">
+                        <h4 class="card-title">Flip</h4>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.flipHorizontal();">
+                            <i class="fa fa-arrows-v" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.flipVertical();">
+                            <i class="fa fa-arrows-h" aria-hidden="true"></i>
+                        </button>
+                        <p class="card-text"></p>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                            <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.cropHeight();">
-                                <i class="fa fa-crop" aria-hidden="true"></i>
-                                Crop height
-                            </button>
-                            <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.cropWidth();">
-                                <i class="fa fa-crop" aria-hidden="true"></i>
-                                Crop width
-                            </button>
-                        </div>
+                    <div class="card-footer">
+                        <small class="text-muted">horiz. {{picture.getPictureObject().flippedHorizontal}}, vert. {{picture.getPictureObject().flippedVertical}}</small>
                     </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-default" style="width:100%;" type="button" ng-click="picture.feelingLucky();">
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="svg/crop.svg" alt="Card image cap" style="width:100%;">
+                    <div class="card-block">
+                        <h4 class="card-title">Crop</h4>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.cropHeight();">
+                            <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
+                            10%
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="picture.cropWidth();">
+                            <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(-45deg);"></i>
+                            10%
+                        </button>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">l,r -{{picture.getPictureObject().offsetLeft}}% t,b -{{picture.getPictureObject().offsetTop}}%</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="svg/filter.svg" alt="Card image cap" style="width:100%;">
+                    <div class="card-block">
+                        <h4 class="card-title">Filter</h4>
+                        <button class="btn btn-outline-primary btn-sm" style="width:100%;" type="button" ng-click="picture.feelingLucky();">
                             <i class="fa fa-magic" aria-hidden="true"></i>
                             I'm feeling lucky
                         </button>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Feeling Lucky = {{picture.getPictureObject().feelingLucky}}</small>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div id="PictureArea"></div>
+                <div class="card">
+                    <img class="card-img-top" src="svg/transparency.svg" alt="Card image cap" style="width:100%;">
+                    <div class="card-block">
+                        <h4 class="card-title">Transparency</h4>
+                        <p class="card-text"></p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Information</small>
                     </div>
                 </div>
             </div>
-
+        </div>
+    </div>
+    <div class="row">	<!-- Mittelteil -->
+        <div class = "col-sm-2" style="background-color:white;">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Undo or Repeat Changes</h4>
+                    <p class="card-text"></p>
+                    <button class="btn btn-primary" type="button" ng-click="picture.back();">
+                        <i class="fa fa-reply" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-primary" type="button" ng-click="picture.forward();">
+                        <i class="fa fa-share" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-primary" type="button" ng-click="picture.resetPic();">
+                        <i class="fa fa-eraser" aria-hidden="true"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Import or Export Image</h4>
+                    <p class="card-text"></p>
+                    <button class="btn btn-primary" type="button" ng-click="pctrl.OpenUploadDialog();">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                        Import
+                    </button>
+                    <button class="btn btn-primary" type="button" ng-click="picture.ExportDialog();">
+                        <i class="fa fa-download " aria-hidden="true"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class = "col-sm-10" style="background-color:#d2d2d2;">	<!-- Bild -->
+            <div id="PictureArea"></div>
+        </div>
+    </div>
+    <div class="row" >	<!-- Fußzeile -->
+        <div class = "col-sm-12">
+            Fußzeile
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </div>
 
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
 <script src="js/Edivator.js"></script>
 <script src="js/EdivatorAngular.js"></script>
+
 </body>
 </html>

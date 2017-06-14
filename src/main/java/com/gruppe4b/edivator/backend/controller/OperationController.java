@@ -1,6 +1,7 @@
 package com.gruppe4b.edivator.backend.controller;
 
 import com.google.appengine.api.images.Image;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
 import org.apache.commons.io.IOUtils;
@@ -94,7 +95,8 @@ public class OperationController {
         // TODO: Send JSON-Response with the new id or redircect link (get_serving_url())
         // https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.api.images#Image_get_serving_url
         System.out.println("URL: " + url);
-        return url;
+        Gson gson = new Gson();
+        return gson.toJson(url);
     }
 
 
