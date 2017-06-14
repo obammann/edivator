@@ -45,8 +45,9 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         headers: {'Content-Type': undefined },
                         transformRequest: angular.identity
                     }).then(function (response) {
-                        console.log(response)
-                        console.log('successfull uploaded')
+                        console.log(response);
+                        console.log('successfull uploaded');
+                        ShowPicture(response.data.url);
                     }).catch(function (data) {
                         console.log(data)
                     });
@@ -55,11 +56,12 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                 reader.readAsArrayBuffer(file);
 
 
-                picture = img;
-                picture.style.width = "auto";
+                //picture = img;
+                //picture.style.width = "auto";
                 dialog.modal('hide');
-                document.getElementById('PictureArea').innerHTML = "";
-                document.getElementById('PictureArea').appendChild(picture);
+                ShowLoading();
+                //document.getElementById('PictureArea').innerHTML = "";
+                //document.getElementById('PictureArea').appendChild(picture);
             }
         };
         var cancelButton = {

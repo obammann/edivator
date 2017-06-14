@@ -88,9 +88,9 @@ public class ImageEditServiceImpl implements ImageEditService {
     public int flip(String imageId,boolean horizontal) {
         //TODO: richtiges Image holen
         BlobKey key = new BlobKey("xx");
-        Image resizeImage = ImagesServiceFactory.makeImageFromBlob(key);
+        Image flippingImage = ImagesServiceFactory.makeImageFromBlob(key);
 
-        Transform transform;
+        Transform transform = ImagesServiceFactory.makeHorizontalFlip();
         if (horizontal == true) {
             transform = ImagesServiceFactory.makeHorizontalFlip();
         } else if (horizontal == false) {
