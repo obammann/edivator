@@ -14,6 +14,65 @@ var picture_obj = {
     target: "preview"			//preview = Vorschaubild, email = per E-Mail senden, download = Bild herunterladen
 };
 
+Buttons = {
+    reset:{
+        id:"btn_reset",
+        disabled:false
+    },
+    undo:{
+        id:"btn_undo",
+        disabled:false
+    },
+    repeat:{
+        id:"btn_repeat",
+        disabled:false
+    },
+    import:{
+        id:"btn_import",
+        disabled:false
+    },
+    export:{
+        id:"btn_export",
+        disabled:false
+    },
+    sizePlus:{
+        id:"btn_sizePlus",
+        disabled:false
+    },
+    sizeMinus:{
+        id:"btn_sizeMinus",
+        disabled:false
+    },
+    rotateLeft:{
+        id:"btn_rotateLeft",
+        disabled:false
+    },
+    rotateRight:{
+        id:"btn_rotateRight",
+        disabled:false
+    },
+    flipHorizontal:{
+        id:"btn_flipHorizontal",
+        disabled:false
+    },
+    flipVertical:{
+        id:"btn_flipVertical",
+        disabled:false
+    },
+    cropWidth:{
+        id:"btn_cropWidth",
+        disabled:false
+    },
+    cropHeight:{
+        id:"btn_cropHeight",
+        disabled:false
+    },
+    filterLucky:{
+        id:"btn_filterLucky",
+        disabled:false
+    }
+};
+
 var versions = new Array;		//Array der alle alten Versionen des Picture Objektes enthält
 versions.push(clone(picture_obj));
 var currentVersion = 0;			//Zählervariable mit welcher alte Versionen des Picture Objectes im versions Array referenziert werden können
@@ -172,22 +231,22 @@ function PictureFactory_UploadDialog($http){
     var options = {
         message: ''+
         '<div class="container-fluid">'+
-        '<div class="row">'+
-        '<div class="col-sm-7">'+
-        '<div>'+
-        'Select an image file from Disk: '+
-        '<input type="file" id="fileInput">'+
-        '</div>'+
-        '<br>'+
-        '<div>'+
-        'Select an image file from url: '+
-        '<input type="text" id="fileInputUrl">'+
-        '</div>'+
-        '</div>'+
-        '<div class="col-sm-5">'+
-        '<div id="fileDisplayArea"></div>'+
-        '</div>'+
-        '</div>'+
+            '<div class="row">'+
+                '<div class="col-sm-7">'+
+                    '<div>'+
+                        'Select an image file from Disk: '+
+                        '<input type="file" id="fileInput">'+
+                    '</div>'+
+                    '<br>'+
+                    '<div>'+
+                        'Select an image file from url: '+
+                        '<input type="text" id="fileInputUrl">'+
+                    '</div>'+
+                '</div>'+
+                '<div class="col-sm-5">'+
+                    '<div id="fileDisplayArea"></div>'+
+                '</div>'+
+            '</div>'+
         '</div>',
         title: "Upload",
         callback: function(){},
@@ -235,7 +294,7 @@ function PictureFactory_ExportDialog(){
     var exportButton = {
         label: 'export',
         className: "Export-Upload",
-        callback: function() {}
+        callback: function(){DownloadImage();}
     };
     var cancelButton = {
         label: 'Cancel',
@@ -245,27 +304,32 @@ function PictureFactory_ExportDialog(){
     var options = {
         message: ''+
         '<div>'+
-        'Type: <br>'+
-        '<select class="selectpicker show-tick" data-style="btn-primary">'+
-        '<option>PNG</option>'+
-        '<option>JPG</option>'+
-        '<option>WEBM</option>'+
-        '</select>'+
+            'Name: <br>'+
+            '<input id="ChoosenFilename" type="text" value="Output">'+
         '</div>'+
         '<br>'+
         '<div>'+
-        'Target: <br>'+
-        '<select class="selectpicker show-tick" data-style="btn-primary">'+
-        '<option>Download</option>'+
-        '<option>E-Mail</option>'+
-        '<option>Cloud-Storage</option>'+
-        '</select>'+
+            'Type: <br>'+
+            '<select id="ChoosenTyp" class="selectpicker show-tick" data-style="btn-primary">'+
+                '<option value="jpg">JPG</option>'+
+                '<option value="png">PNG</option>'+
+                '<option value="bmp">BMP</option>'+
+            '</select>'+
+        '</div>'+
+        '<br>'+
+        '<div>'+
+            'Target: <br>'+
+            '<select class="selectpicker show-tick" data-style="btn-primary">'+
+                '<option>Download</option>'+
+                '<option disabled>E-Mail</option>'+
+                '<option disabled>Cloud-Storage</option>'+
+            '</select>'+
         '</div>',
         title: "Export",
         callback: function(){},
         onEscape: false,
         backdrop: true,
-        closeButton: true,
+        closeButton: false,
         animate: true,
         size: "small",
         buttons: {exportButton, cancelButton}
@@ -322,8 +386,15 @@ function getDataUri(url, callback) {
 }
 
 function ShowLoading(){
+    BtnDiasbaleAll();
+    var image = document.getElementById("CurrentImage");
+    var imageHeight = "";
+    if(image !== null){
+        imageHeight = image.naturalHeight;
+    }
+
     var html=''+
-        '<div class="loading">'+
+        '<div class="loading" style="height:'+imageHeight+'">'+
         'Loading...<br>'+
         '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>'+
         '</div>';
@@ -333,8 +404,38 @@ function ShowLoading(){
 }
 
 function ShowPicture(url){
-    var html='<img src="'+url+'">';
+    BtnSetObjState();
+    var html='<img id= "CurrentImage" src="'+url+'">';
 
     var ImageSection = document.getElementById("PictureArea");
     ImageSection.innerHTML = html;
 }
+
+function DownloadImage(){
+    var url, name, typ, DropbdownType;
+    url = document.getElementById("CurrentImage").src;
+    name = document.getElementById("ChoosenFilename").value;
+    DropbdownType = document.getElementById("ChoosenTyp");
+    typ = DropbdownType.options[DropbdownType.selectedIndex].value;
+
+    saveFile(url, name, typ);
+}
+
+function saveFile(url, name, typ) {
+    // Get file name from url.
+    var filename = url.substring(url.lastIndexOf("/") + 1).split("?")[0];
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        var a = document.createElement('a');
+        a.href = window.URL.createObjectURL(xhr.response); // xhr.response is a blob
+        a.download = name+"."+typ; // Set the file name.
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        delete a;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+}
+
