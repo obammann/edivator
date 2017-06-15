@@ -44,11 +44,11 @@
                     <img class="card-img-top" src="svg/size.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Size</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="bigger();">
+                        <button id="btn_sizePlus" class="btn btn-outline-primary btn-sm" type="button" ng-click="bigger();">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             10%
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="smaler();">
+                        <button id="btn_sizeMinus" class="btn btn-outline-primary btn-sm" type="button" ng-click="smaler();">
                             <i class="fa fa-minus" aria-hidden="true"></i>
                             10%
                         </button>
@@ -71,11 +71,11 @@
                     <img class="card-img-top" src="svg/rotation.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Rotation</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateLeft()">
+                        <button id="btn_rotateLeft" class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateLeft()">
                             <i class="fa fa-undo" aria-hidden="true"></i>
                             90°
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateRight();">
+                        <button id="btn_rotateRight" class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateRight();">
                             <i class="fa fa-repeat" aria-hidden="true"></i>
                             90°
                         </button>
@@ -89,10 +89,10 @@
                     <img class="card-img-top" src="svg/flip.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Flip</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="flipHorizontal();">
+                        <button id="btn_flipHorizontal" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipHorizontal();">
                             <i class="fa fa-arrows-v" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
+                        <button id="btn_flipVertical" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
                             <i class="fa fa-arrows-h" aria-hidden="true"></i>
                         </button>
                         <p class="card-text"></p>
@@ -105,11 +105,11 @@
                     <img class="card-img-top" src="svg/crop.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Crop</h4>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight();">
+                        <button id="btn_cropWidth" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight();">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
                             10%
                         </button>
-                        <button class="btn btn-outline-primary btn-sm" type="button" ng-click="cropWidth();">
+                        <button id="btn_cropHeight" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropWidth();">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(-45deg);"></i>
                             10%
                         </button>
@@ -123,7 +123,7 @@
                     <img class="card-img-top" src="svg/filter.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Filter</h4>
-                        <button class="btn btn-outline-primary btn-sm" style="width:100%;" type="button" ng-click="feelingLucky();">
+                        <button id="btn_filterLucky" class="btn btn-outline-primary btn-sm" style="width:100%;" type="button" ng-click="feelingLucky();">
                             <i class="fa fa-magic" aria-hidden="true"></i>
                             I'm feeling lucky
                         </button>
@@ -152,13 +152,13 @@
                 <div class="card-block">
                     <h4 class="card-title">Undo or Repeat Changes</h4>
                     <p class="card-text"></p>
-                    <button class="btn btn-primary" type="button" ng-click="picture.back();">
+                    <button id="btn_undo" class="btn btn-primary" type="button" ng-click="picture.back();">
                         <i class="fa fa-reply" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-primary" type="button" ng-click="picture.forward();">
+                    <button id="btn_repeat" class="btn btn-primary" type="button" ng-click="picture.forward();">
                         <i class="fa fa-share" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-primary" type="button" ng-click="picture.resetPic();">
+                    <button id="btn_reset" class="btn btn-primary" type="button" ng-click="picture.resetPic();">
                         <i class="fa fa-eraser" aria-hidden="true"></i>
                         Reset
                     </button>
@@ -168,11 +168,11 @@
                 <div class="card-block">
                     <h4 class="card-title">Import or Export Image</h4>
                     <p class="card-text"></p>
-                    <button class="btn btn-primary" type="button" ng-click="pctrl.OpenUploadDialog();">
+                    <button id="btn_import" class="btn btn-primary" type="button" ng-click="pctrl.OpenUploadDialog();">
                         <i class="fa fa-upload" aria-hidden="true"></i>
                         Import
                     </button>
-                    <button class="btn btn-primary" type="button" ng-click="picture.ExportDialog();">
+                    <button id="btn_export" class="btn btn-primary" type="button" ng-click="picture.ExportDialog();">
                         <i class="fa fa-download " aria-hidden="true"></i>
                         Export
                     </button>
