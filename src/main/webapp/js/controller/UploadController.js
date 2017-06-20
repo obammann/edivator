@@ -6,22 +6,22 @@ mainApp.controller('FileUploadController', function($scope, $http) {
 
     $scope.document = {};
 
-    $scope.setTitle = function(fileInput) {
-
-        var file=fileInput.value;
-        var filename = file.replace(/^.*[\\\/]/, '');
-        var title = filename.substr(0, filename.lastIndexOf('.'));
-        $("#title").val(title);
-        $("#title").focus();
-        $scope.document.title=title;
-    };
+    // $scope.setTitle = function(fileInput) {
+    //
+    //     var file=fileInput.value;
+    //     var filename = file.replace(/^.*[\\\/]/, '');
+    //     var title = filename.substr(0, filename.lastIndexOf('.'));
+    //     $("#title").val(title);
+    //     $("#title").focus();
+    //     $scope.document.title=title;
+    // };
 
     $scope.uploadFile=function(){
         var formData=new FormData();
         formData.append("file",file.files[0]);
         $http({
             method: 'POST',
-            url: '/newDocument',
+            url: '/imageForm',
             headers: { 'Content-Type': undefined},
             data:  formData
         })

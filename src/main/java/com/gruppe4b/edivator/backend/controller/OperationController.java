@@ -1,16 +1,16 @@
 package com.gruppe4b.edivator.backend.controller;
 
-import com.google.appengine.api.images.Image;
-import com.google.appengine.repackaged.com.google.gson.Gson;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruppe4b.edivator.backend.domain.ImageResponse;
-import com.gruppe4b.edivator.backend.service.DefaultImageStoreService;
 import com.gruppe4b.edivator.backend.service.ImageEditService;
+import com.gruppe4b.edivator.backend.service.ImageStoreService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -24,19 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 @RestController
 public class OperationController {
 
     @Autowired
     ImageEditService imageEditService;
 
-    @RequestMapping (path="/test/operationsrunning", method = RequestMethod.GET)
-    public String testAnswer(){
-        return  "Route kommt auch hier an.";
-    }
+    @Autowired
+    ImageStoreService imageStoreService;
+
+    //    @RequestMapping (path="/test/operationsrunning", method = RequestMethod.GET)
+    //    public String testAnswer(){
+    //        return  "Route kommt auch hier an.";
+    //    }
 
 
     @RequestMapping(path = "/image/{imageId}/flip", method = RequestMethod.PUT)
@@ -80,16 +80,13 @@ public class OperationController {
         System.out.println("Upload requested.");
         // byte[] payload = requestEntity.getBody();
 
-        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
-
-
         Resource resource = new ClassPathResource("garfield.jpg");
         try {
             InputStream resourceInputStream = resource.getInputStream();
 
             byte[] bytes = IOUtils.toByteArray(resourceInputStream);
             System.out.println("Image: " + bytes);
-            imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(bytes), "Uploaded_Garfield.jpg");
+            imageStoreService.writeImageToCloudStorage(imageStoreService.getImageFromByteArray(bytes), "Uploaded_Garfield.jpg");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,13 +102,12 @@ public class OperationController {
 
         System.out.println("Request: Upload Image");
         byte[] payload = requestEntity.getBody();
-        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
 
         String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
 
         String url = "No serving url...";
         try {
-            url = imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+            url = imageStoreService.writeImageToCloudStorage(imageStoreService.getImageFromByteArray(payload), new_image_id);
         } catch (IOException e) {
             e.printStackTrace();
             // TODO: handle Exception properly
@@ -124,14 +120,12 @@ public class OperationController {
         return gson.toJson(response);
     }
 
-
-    @RequestMapping(path="/newDocument", consumes = {"multipart/form-data"}, method = RequestMethod.POST)
+    @RequestMapping(path = "/imageForm", consumes = { "multipart/form-data" }, method = RequestMethod.POST)
     public void UploadFile(MultipartHttpServletRequest request, HttpServletResponse response) {
 
         Iterator<String> itr=request.getFileNames();
 
         MultipartFile file=request.getFile(itr.next());
-
 
         String fileName=file.getOriginalFilename();
         System.out.println(fileName);
@@ -142,13 +136,12 @@ public class OperationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DefaultImageStoreService imageStore = new DefaultImageStoreService("edivator_image_store_europe"); // TODO: use DI
 
         String new_image_id = new Integer( Math.abs(new Integer(payload.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
 
         String url = "No serving url...";
         try {
-            url = imageStore.writeImageToCloudStorage(imageStore.getImageFromByteArray(payload), new_image_id);
+            url = imageStoreService.writeImageToCloudStorage(imageStoreService.getImageFromByteArray(payload), new_image_id);
         } catch (IOException e) {
             e.printStackTrace();
             // TODO: handle Exception properly

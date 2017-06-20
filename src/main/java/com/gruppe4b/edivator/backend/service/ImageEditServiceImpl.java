@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.images.*;
+import com.google.appengine.api.images.Image;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.Transform;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.tools.cloudstorage.GcsFileOptions;
@@ -16,6 +18,7 @@ import com.google.appengine.tools.cloudstorage.GcsService;
 import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
 import com.google.appengine.tools.cloudstorage.RetryParams;
 import com.gruppe4b.edivator.backend.domain.ImageResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -25,11 +28,12 @@ public class ImageEditServiceImpl implements ImageEditService {
     private final String bucket = "gruppe-4b.appspot.com";
 
     private final ImagesService imagesService;
-    private final ImageStoreService imageStoreService;
+
+    @Autowired
+    private ImageStoreService imageStoreService;
 
     public ImageEditServiceImpl() {
         imagesService = ImagesServiceFactory.getImagesService();
-        imageStoreService = new DefaultImageStoreService("edivator_image_store_europe");
     }
 
     private final GcsService gcsService = GcsServiceFactory.createGcsService(new RetryParams.Builder()
