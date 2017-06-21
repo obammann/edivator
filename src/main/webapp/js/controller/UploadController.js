@@ -21,7 +21,7 @@ mainApp.controller('FileUploadController', function($scope, $http) {
         formData.append("file",file.files[0]);
         $http({
             method: 'POST',
-            url: '/imageForm',
+            url: '/imageUpload/form',
             headers: { 'Content-Type': undefined},
             data:  formData
         })

@@ -1,0 +1,51 @@
+package com.gruppe4b.edivator.backend.controller;
+
+import com.gruppe4b.edivator.backend.service.ImageEditService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController(value = "/image")
+public class ImageEditController {
+
+    @Autowired
+    ImageEditService imageEditService;
+
+    @RequestMapping(path = "/{imageId}/flip", method = RequestMethod.PUT)
+    public String flip(@PathVariable("imageId") String imageId,
+            @RequestParam(value = "horizontal", defaultValue = "false") boolean horizontal) {
+        return imageEditService.flip(imageId, horizontal);
+    }
+
+    @RequestMapping(path = "/{imageId}/rotate", method = RequestMethod.PUT)
+    public String rotate(@PathVariable("imageId") String imageId,
+            @RequestParam(value = "left", defaultValue = "false") boolean left) {
+        String response = "Error";
+        if (left) {
+            response = imageEditService.turnLeft(imageId);
+        } else {
+            response = imageEditService.turnRight(imageId);
+        }
+        return response;
+    }
+
+    @RequestMapping(path = "/{imageId}/resize", method = RequestMethod.PUT)
+    public String resize(@PathVariable("imageId") String imageId,
+            @RequestParam(value = "percentage", required = true) int percantage) {
+        return imageEditService.resizeImage(imageId, percantage);
+    }
+
+    @RequestMapping(path = "/{imageId}/crop", method = RequestMethod.PUT)
+    public String crop(@PathVariable("imageId") String imageId,
+            @RequestParam(value = "cropHeight", defaultValue = "false") boolean height) {
+        return imageEditService.crop(imageId, height);
+    }
+
+    @RequestMapping(path = "/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)
+    public String feelingLuckyFilter(@PathVariable("imageId") String imageId) {
+        return imageEditService.applyLuckyFilter(imageId);
+    }
+}

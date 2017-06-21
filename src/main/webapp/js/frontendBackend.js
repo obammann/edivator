@@ -42,7 +42,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                     var data = e.target.result;
 
                     // https://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
-                    var uploadUrl = "/image"
+                    var uploadUrl = "/imageUpload"
                     $http.post(uploadUrl, data, {
                         withCredentials: true,
                         headers: {'Content-Type': undefined },
