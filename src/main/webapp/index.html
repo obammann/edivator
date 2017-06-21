@@ -89,16 +89,16 @@
                     <img class="card-img-top" src="img/svg/flip.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
                         <h4 class="card-title">Flip</h4>
-                        <button id="btn_flipHorizontal" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipHorizontal();">
+                        <button id="btn_flipHorizontal" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
                             <i class="fa fa-arrows-v" aria-hidden="true"></i>
                         </button>
-                        <button id="btn_flipVertical" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
+                        <button id="btn_flipVertical" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipHorizontal();">
                             <i class="fa fa-arrows-h" aria-hidden="true"></i>
                         </button>
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">horiz. {{picture.getPictureObject().flippedHorizontal}}, vert. {{picture.getPictureObject().flippedVertical}}</small>
+                        <small class="text-muted">flipped {{picture.getPictureObject().flippedString}}</small>
                     </div>
                 </div>
                 <div class="card">
@@ -116,7 +116,12 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">l,r -{{picture.getPictureObject().offsetLeft}}% t,b -{{picture.getPictureObject().offsetTop}}%</small>
+                        <small class="text-muted">
+                            <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
+                            -{{picture.getPictureObject().offsetLeftRight}}%
+                            <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(-45deg);"></i>
+                            -{{picture.getPictureObject().offsetTopBottom}}%
+                        </small>
                     </div>
                 </div>
                 <div class="card">
@@ -130,7 +135,7 @@
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Feeling Lucky = {{picture.getPictureObject().feelingLucky}}</small>
+                        <small class="text-muted">Used {{picture.getPictureObject().feelingLucky}} times</small>
                     </div>
                 </div>
                 <div class="card">
@@ -195,8 +200,8 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
-<script src="js/Edivator.js"></script>
-<script src="js/EdivatorAngular.js"></script>
+<script src="js/frontend.js"></script>
+<script src="js/frontendBackend.js"></script>
 
 </body>
 </html>
