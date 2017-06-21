@@ -169,9 +169,14 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropHeight = function() {
         console.log("height cropped");
-        var crop = 10;
-        //TODO --> crop anpassen
-        var url = "/image/" + $scope.imgId + "/crop?cropHeight=true&crop=" + crop;
+        var imgWidth = document.getElementById("CurrentImage").getAttribute("width");
+        var imgHeight= document.getElementById("CurrentImage").getAttribute("height");
+        var cropInt = imgHeight * 10 / 100;
+        var borderLeft = 0;
+        var borderRight = imgWidth;
+        var borderTop = 0 + cropInt;
+        var borderBottom = imgHeight - cropInt;
+        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + borderLeft + "&rightBorder=" + borderRight + "&topBorder=" + borderTop + "&bottomBorder=" + borderBottom;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
@@ -179,9 +184,14 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropWidth = function() {
         console.log("width cropped");
-        var crop = 10;
-        //TODO --> Crop anpassen
-        var url = "/image/" + $scope.imgId + "/crop?cropHeight=false&crop=" + crop;
+        var imgWidth = document.getElementById("CurrentImage").getAttribute("width");
+        var imgHeight= document.getElementById("CurrentImage").getAttribute("height");
+        var cropInt = imgWidth * 10 / 100;
+        var borderLeft = imgWidth + cropInt;
+        var borderRight = imgWidth - cropInt;
+        var borderTop = 0;
+        var borderBottom = imgHeight;
+        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + borderLeft + "&rightBorder=" + borderRight + "&topBorder=" + borderTop + "&bottomBorder=" + borderBottom;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(10, 0);
@@ -215,7 +225,6 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         console.log("imagesize is changed");
         var newWidth = width;
         var newHeight = height;
-        //TODO --> neue größen anpassen und smaller und bigger löschen
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
         this.callRouteAndActualize(url);
