@@ -7,6 +7,8 @@
 
     <title>Edivator</title>
 
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
 
@@ -26,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="Edivator.css">
+    <link rel="stylesheet" href="css/Edivator.css">
 
 </head>
 
@@ -55,7 +57,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/size.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h6 class="card-title">Size</h6>
+
                         <button id="btn_sizePlus" class="btn btn-outline-primary btn-sm" type="button" ng-click="bigger();">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             10%
@@ -73,7 +75,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/rotation.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h6 class="card-title">Rotation</h6>
+
                         <button id="btn_rotateLeft" class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateLeft()">
                             <i class="fa fa-undo" aria-hidden="true"></i>
                             90°
@@ -91,7 +93,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/flip.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h6 class="card-title">Flip</h6>
+
                         <button id="btn_flipHorizontal" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
                             <i class="fa fa-arrows-v" aria-hidden="true"></i>
                         </button>
@@ -107,7 +109,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/crop.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h6 class="card-title">Crop</h6>
+
                         <button id="btn_cropWidth" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight();">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
                             10%
@@ -130,7 +132,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/filter.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h6 class="card-title">Filter</h6>
+
                         <button id="btn_filterLucky" class="btn btn-outline-primary btn-sm" type="button" ng-click="feelingLucky();">
                             <i class="fa fa-magic" aria-hidden="true"></i>
                             use
@@ -150,12 +152,8 @@
         </div>
     </div>
     <div class="row" >	<!-- Fußzeile -->
-        <div class = "col-sm-12" style="text-align: right">
+        <div class = "col-sm-12" style="text-align: left">
             <i class="fa fa-copyright" aria-hidden="true"></i>Edivator 2017
-            <br>
-            <br>Hochschule Bremen
-            <br>University of Applied Science
-            <br>Masterproject: Cloud-Computing
         </div>
     </div>
 </div>

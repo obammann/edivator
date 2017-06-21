@@ -9,11 +9,14 @@
 <g id="Layer_2">
 </g>
 <g id="Layer_1">
-	<rect fill="#9755BB" width="500.5" height="200"/>
+	<rect fill="#72AAE6" width="500.5" height="200"/>
+	<!--9755BB-->
 </g>
 <g id="Layer_5">
-	<path fill="#8A3EB2" d="M301.408,41.104l50.093,33.173v104.723h-90.836L147.712,64.886c0,0,56.138-42.97,92.223-42.97
+	<path fill="#467DBD" d="M301.408,41.104l50.093,33.173v104.723h-90.836L147.712,64.886c0,0,56.138-42.97,92.223-42.97
 		C276.018,21.916,301.408,41.104,301.408,41.104z"/>
+	<!--8A3EB2-->
+
 </g>
 <g id="Layer_4">
 	<g>
@@ -29,4 +32,6 @@
 		<ellipse fill="#FFFFFF" cx="239.934" cy="71.042" rx="22.236" ry="24.771"/>
 	</g>
 </g>
+	<text id="orderTxt" x="378" y="180" fill="white" font-size="36" font="" transform="rotate(270,378,180)">FILTER</text>
+
 </svg>
