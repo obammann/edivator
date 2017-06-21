@@ -41,10 +41,10 @@ public class ImageEditController {
 
     @RequestMapping(path = "/image/{imageId}/crop", method = RequestMethod.PUT)
     public String crop(@PathVariable("imageId") String imageId,
-            @RequestParam(value = "leftBorder", required = true) int leftBorder,
-            @RequestParam(value = "rightBorder", required = true) int rightBorder,
-           @RequestParam(value = "topBorder", required = true) int topBorder,
-           @RequestParam(value = "bottomBorder", required = true) int bottomBorder) {
+            @RequestParam(value = "leftBorder", required = true) float leftBorder,
+            @RequestParam(value = "rightBorder", required = true) float rightBorder,
+           @RequestParam(value = "topBorder", required = true) float topBorder,
+           @RequestParam(value = "bottomBorder", required = true) float bottomBorder) {
         return imageEditService.crop(imageId,leftBorder,rightBorder,topBorder,bottomBorder);
     }
 

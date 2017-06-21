@@ -169,14 +169,9 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropHeight = function() {
         console.log("height cropped");
-        var imgWidth = document.getElementById("CurrentImage").getAttribute("width");
-        var imgHeight= document.getElementById("CurrentImage").getAttribute("height");
-        var cropInt = imgHeight * 10 / 100;
-        var borderLeft = 0;
-        var borderRight = imgWidth;
-        var borderTop = 0 + cropInt;
-        var borderBottom = imgHeight - cropInt;
-        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + borderLeft + "&rightBorder=" + borderRight + "&topBorder=" + borderTop + "&bottomBorder=" + borderBottom;
+        var imgWidth = document.getElementById("CurrentImage").naturalWidth;
+        var imgHeight= document.getElementById("CurrentImage").naturalHeight;
+        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + 0 + "&rightBorder=" + 1 + "&topBorder=" + 0.1 + "&bottomBorder=" + 0.9;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
@@ -184,14 +179,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropWidth = function() {
         console.log("width cropped");
-        var imgWidth = document.getElementById("CurrentImage").getAttribute("width");
-        var imgHeight= document.getElementById("CurrentImage").getAttribute("height");
-        var cropInt = imgWidth * 10 / 100;
-        var borderLeft = imgWidth + cropInt;
-        var borderRight = imgWidth - cropInt;
-        var borderTop = 0;
-        var borderBottom = imgHeight;
-        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + borderLeft + "&rightBorder=" + borderRight + "&topBorder=" + borderTop + "&bottomBorder=" + borderBottom;
+        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + 0.1 + "&rightBorder=" + 0.9 + "&topBorder=" + 0 + "&bottomBorder=" + 1;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(10, 0);
@@ -221,10 +209,10 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         FrontendObj_resize(-10);
     };
 
-    $scope.changeSize = function (width, height) {
+    $scope.changeSize = function () {
         console.log("imagesize is changed");
-        var newWidth = width;
-        var newHeight = height;
+        var newWidth = $scope.inputSizeWidth;
+        var newHeight = $scope.inputSizeHeight;
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
         this.callRouteAndActualize(url);
