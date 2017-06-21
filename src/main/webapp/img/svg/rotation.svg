@@ -9,11 +9,13 @@
 <g id="Layer_2">
 </g>
 <g id="Layer_1">
-	<rect fill="#9755BB" width="500.5" height="200.333"/>
+	<rect fill="#6097C7" width="500.5" height="200.333"/>
+	<!--9755BB-->
 </g>
 <g id="Layer_5">
-	<path fill="#8A3EB2" d="M298.643,6.61l46.856,66.462v119.04H237.846l-64.577-75.765c0,0-15.508-43.11,9.874-77.075
+	<path fill="#4A759B" d="M298.643,6.61l46.856,66.462v119.04H237.846l-64.577-75.765c0,0-15.508-43.11,9.874-77.075
 		s70.893-21.772,89.274-3.484L298.643,6.61z"/>
+	<!--8A3EB2-->
 </g>
 <g id="Layer_4">
 	<g>
@@ -24,4 +26,6 @@
 		<ellipse fill="#FFFFFF" cx="229.926" cy="76.353" rx="8.388" ry="8.347"/>
 	</g>
 </g>
+	<text id="orderTxt" x="370" y="190" fill="white" font-size="36" font="" transform="rotate(270,370,190)">ROTATE</text>
+
 </svg>

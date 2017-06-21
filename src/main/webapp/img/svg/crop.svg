@@ -6,17 +6,22 @@
 ]>
 <svg  version="1.1" xmlns="&ns_svg;"  width="500.5" height="199.5" viewBox="0 0 500.5 199.5"
 	 overflow="visible" enable-background="new 0 0 500.5 199.5" xml:space="preserve">
-<g id="Layer_2">
+	<g id="Layer_2">
 </g>
 <g id="Layer_1">
-	<rect fill="#57CE66" width="500.5" height="199.5"/>
+	<rect fill="#6097C7" width="500.5" height="199.5"/>
+	<!--57CE66-->
 </g>
 <g id="Layer_5">
-	<polygon fill="#35A83F" points="158.5,114.475 233.474,192 339.037,192 339.037,89.446 259.265,7.037 256.266,10.7 255.666,57.093 
+	<polygon fill="#4A759B" points="158.5,114.475 233.474,192 339.037,192 339.037,89.446 259.265,7.037 256.266,10.7 255.666,57.093
 		208.882,58.314 206.483,110.201 	"/>
+	<!--35A83F-->
 </g>
 <g id="Layer_4">
 	<path fill="#FFFFFF" d="M211.282,162.089v-47.614h47.983V61.977h45.584v-7.325h-45.584V7.037h-7.197v47.614h-47.983v52.498H158.5
 		v7.325h45.584v47.614H211.282z M211.282,61.977h40.786v45.173h-40.786V61.977z"/>
 </g>
+	<text id="orderTxt" x="365" y="190" fill="white" font-size="36" font="" transform="rotate(270,365,190)">CROP</text>
+
 </svg>
+

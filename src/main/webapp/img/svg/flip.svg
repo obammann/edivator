@@ -25,4 +25,6 @@
 		</g>
 	</g>
 </g>
+	<text id="orderTxt" x="370" y="190" fill="white" font-size="36" font="" transform="rotate(270,370,190)">FLIP</text>
+
 </svg>

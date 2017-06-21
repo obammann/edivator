@@ -9,10 +9,12 @@
 <g id="Layer_2">
 </g>
 <g id="Layer_1">
-	<rect fill="#DB5165" width="500.479" height="200"/>
+	<rect fill="#72AAE6" width="500.479" height="200"/>
+    <!--0089FFDB5165-->
 </g>
 <g id="Layer_5">
-	<polygon fill="#B7344D" points="288.41,12.039 344,68.974 344,189.963 236.525,189.963 163.979,133.152 163.979,12.077 	"/>
+	<polygon fill="#467DBD" points="288.41,12.039 344,68.974 344,189.963 236.525,189.963 163.979,133.152 163.979,12.077 	"/>
+    <!--B7344D-->
 </g>
 <g id="Layer_4">
 	<g>
@@ -21,4 +23,6 @@
 		<rect x="236.535" y="91.124" fill="#FFFFFF" width="29.162" height="6.466"/>
 	</g>
 </g>
+	<text id="orderTxt" x="370" y="190" fill="white" font-size="36" font="" transform="rotate(270,370,190)">SIZE</text>
+
 </svg>
