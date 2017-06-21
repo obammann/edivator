@@ -40,6 +40,10 @@ Buttons = {                     //Objekt welches alle Buttons mit ID und Zustand
         id:"btn_sizeMinus",
         disabled:false
     },
+    sizeApply:{
+        id:"btn_sizeApply",
+        disabled:false
+    },
     rotateLeft:{
         id:"btn_rotateLeft",
         disabled:false
