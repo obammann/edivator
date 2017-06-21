@@ -211,10 +211,10 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         FrontendObj_resize(-10);
     };
 
-    $scope.changeSize = function () {
+    $scope.changeSize = function (width, height) {
         console.log("imagesize is changed");
-        var newWidth = 0;
-        var newHeight = 0;
+        var newWidth = width;
+        var newHeight = height;
         //TODO --> neue größen anpassen und smaller und bigger löschen
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
