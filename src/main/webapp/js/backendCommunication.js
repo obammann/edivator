@@ -169,14 +169,9 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropHeight = function() {
         console.log("height cropped");
-        var imgWidth = document.getElementById("CurrentImage").getAttribute("width");
-        var imgHeight= document.getElementById("CurrentImage").getAttribute("height");
-        var cropInt = imgHeight * 10 / 100;
-        var borderLeft = 0;
-        var borderRight = imgWidth;
-        var borderTop = 0 + cropInt;
-        var borderBottom = imgHeight - cropInt;
-        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + borderLeft + "&rightBorder=" + borderRight + "&topBorder=" + borderTop + "&bottomBorder=" + borderBottom;
+        var crop = 10;
+        //TODO --> crop anpassen
+        var url = "/image/" + $scope.imgId + "/crop?cropHeight=true&crop=" + crop;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
@@ -184,14 +179,9 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropWidth = function() {
         console.log("width cropped");
-        var imgWidth = document.getElementById("CurrentImage").getAttribute("width");
-        var imgHeight= document.getElementById("CurrentImage").getAttribute("height");
-        var cropInt = imgWidth * 10 / 100;
-        var borderLeft = imgWidth + cropInt;
-        var borderRight = imgWidth - cropInt;
-        var borderTop = 0;
-        var borderBottom = imgHeight;
-        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + borderLeft + "&rightBorder=" + borderRight + "&topBorder=" + borderTop + "&bottomBorder=" + borderBottom;
+        var crop = 10;
+        //TODO --> Crop anpassen
+        var url = "/image/" + $scope.imgId + "/crop?cropHeight=false&crop=" + crop;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(10, 0);

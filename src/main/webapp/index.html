@@ -67,6 +67,22 @@
                             10%
                         </button>
                         <p class="card-text"></p>
+
+                        <form>
+                            <div class="input-group width">
+
+                                    <input type="number" class="form-control" placeholder="width" ng-model="inputSizeWidth">
+                                    <input type="number" class="form-control" placeholder="height" ng-model="inputSizeHeight">
+
+                                    <button id="btn_sizeApply" class="btn btn-outline-primary btn-sm" type="button" ng-click="changeSize();">
+                                        apply
+                                    </button>
+
+                            </div>
+                        </form>
+
+
+
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">w {{picture.getPictureObject().width}}%, h {{picture.getPictureObject().height}}%</small>
