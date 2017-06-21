@@ -49,7 +49,10 @@ public class ImageStoreServiceImpl implements ImageStoreService {
                 ByteBuffer.wrap(data)
         );
 
-        return imagesService.getServingUrl(ServingUrlOptions.Builder.withGoogleStorageFileName("/gs/" + bucket + "/" + name));
+        return imagesService.getServingUrl(ServingUrlOptions.Builder
+                .withGoogleStorageFileName("/gs/" + bucket + "/" + name)
+                .crop(false)
+                .imageSize(0));
     }
 
     @Override
