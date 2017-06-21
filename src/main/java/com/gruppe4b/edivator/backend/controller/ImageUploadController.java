@@ -11,21 +11,20 @@ import com.gruppe4b.edivator.backend.domain.ImageResponse;
 import com.gruppe4b.edivator.backend.service.ImageStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-@RestController(value = "/imageUpload")
+@RestController
 public class ImageUploadController {
 
     @Autowired
     ImageStoreService imageStoreService;
 
     // https://stackoverflow.com/questions/14615692/how-do-i-upload-stream-large-images-using-spring-3-2-spring-mvc-in-a-restful-way
-    @PostMapping
+    @RequestMapping(path = "/imageUpload", method = RequestMethod.POST)
     public String uploadImage(HttpEntity<byte[]> requestEntity) {
 
         System.out.println("Request: Upload Image");
@@ -48,7 +47,7 @@ public class ImageUploadController {
         return gson.toJson(response);
     }
 
-    @RequestMapping(path = "/form", consumes = { "multipart/form-data" }, method = RequestMethod.POST)
+    @RequestMapping(path = "/imageUpload/form", consumes = { "multipart/form-data" }, method = RequestMethod.POST)
     public void UploadFile(MultipartHttpServletRequest request, HttpServletResponse response) {
 
         Iterator<String> itr = request.getFileNames();
