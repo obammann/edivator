@@ -34,14 +34,16 @@ public class ImageEditController {
 
     @RequestMapping(path = "/image/{imageId}/resize", method = RequestMethod.PUT)
     public String resize(@PathVariable("imageId") String imageId,
-            @RequestParam(value = "percentage", required = true) int percantage) {
-        return imageEditService.resizeImage(imageId, percantage);
+            @RequestParam(value = "wishedWidth", required = true) int wishedWidth,
+                         @RequestParam(value="wishedHeight", required = true) int wishedHeight) {
+        return imageEditService.resizeImage(imageId,wishedWidth,wishedHeight);
     }
 
     @RequestMapping(path = "/image/{imageId}/crop", method = RequestMethod.PUT)
     public String crop(@PathVariable("imageId") String imageId,
-            @RequestParam(value = "cropHeight", defaultValue = "false") boolean height) {
-        return imageEditService.crop(imageId, height);
+            @RequestParam(value = "cropHeight", defaultValue = "false") boolean height,
+            @RequestParam(value = "crop", required = true) int crop) {
+        return imageEditService.crop(imageId, height, crop);
     }
 
     @RequestMapping(path = "/image/{imageId}/filter/feelinglucky", method = RequestMethod.PUT)

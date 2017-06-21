@@ -121,7 +121,8 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                     // Set the img src property using the data URL.
                     img.src = reader.result;
                     img.style.width = "100%";
-
+                    $scope.imgActualWidth = img.width;
+                    $scope.imgActualHeight = img.height;
                     // Add the image to the page.
                     fileDisplayArea.appendChild(img);
                 }
@@ -144,7 +145,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.rotateRight = function() {
         console.log("rotated Right");
-        var url = "/image/" + $scope.imgId + "/rotate?left=true";
+        var url = "/image/" + $scope.imgId + "/rotate?left=false";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_rotate(90);
@@ -168,7 +169,9 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropHeight = function() {
         console.log("height cropped");
-        var url = "/image/" + $scope.imgId + "/crop?cropHeight=true";
+        var crop = 10;
+        //TODO --> crop anpassen
+        var url = "/image/" + $scope.imgId + "/crop?cropHeight=true&crop=" + crop;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
@@ -176,7 +179,9 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropWidth = function() {
         console.log("width cropped");
-        var url = "/image/" + $scope.imgId + "/crop?cropHeight=false";
+        var crop = 10;
+        //TODO --> Crop anpassen
+        var url = "/image/" + $scope.imgId + "/crop?cropHeight=false&crop=" + crop;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(10, 0);
@@ -200,11 +205,21 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.smaler = function () {
         console.log("image gets smaller");
-        var url = "/image/" + $scope.imgId + "/resize?percentage=-10";
+        var url = "/image/" + $scope.imgId + "/resize?wishedWidth";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_resize(-10);
     };
+
+    $scope.changeSize = function () {
+        console.log("imagesize is changed");
+        var newWidth = 0;
+        var newHeight = 0;
+        //TODO --> neue größen anpassen und smaller und bigger löschen
+        var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
+        ShowLoading();
+        this.callRouteAndActualize(url);
+    }
 
     $scope.callRouteAndActualize = function(url) {
         $http.put(url, {

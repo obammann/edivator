@@ -80,12 +80,10 @@ public class ImageEditServiceImpl implements ImageEditService {
         return byteBuffer.array();
     }
 
-    public String resizeImage(String imageId, int percentage) {
+    public String resizeImage(String imageId, int wishedWidth, int wishedHeight) {
         Image resizeImage = imageStoreService.getImageFromCloudStorage(imageId);
 
-        int origWidth = resizeImage.getWidth();
-        int origHeight = resizeImage.getHeight();
-        Transform transform = ImagesServiceFactory.makeResize(origWidth * percentage, origHeight * percentage);
+        Transform transform = ImagesServiceFactory.makeResize(wishedWidth, wishedHeight);
         Image resizedImage = imagesService.applyTransform(transform, resizeImage);
 
         String id = new Integer( Math.abs(new Integer(resizedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();
@@ -155,18 +153,13 @@ public class ImageEditServiceImpl implements ImageEditService {
         return gson.toJson(createResponse(url,id));
     }
 
-    public String crop(String imageId, boolean cropHeight) {
+    public String crop(String imageId, boolean cropHeight, int crop) {
         Image croppingImage = imageStoreService.getImageFromCloudStorage(imageId);
 
-        int width = croppingImage.getWidth();
-        int height = croppingImage.getHeight();
         Transform transform = ImagesServiceFactory.makeCrop(0,0,0,0);
-        float crop = 0;
         if (cropHeight) {
-            crop = height * 10 / 100;
             transform = ImagesServiceFactory.makeCrop(crop,0,crop,0);
         } else {
-            crop = width * 10 / 100;
             transform = ImagesServiceFactory.makeCrop(0,crop,0,crop);
         }
 
