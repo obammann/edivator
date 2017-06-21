@@ -151,7 +151,19 @@ function ExportDialog(){
     var exportButton = {
         label: 'export',
         className: "Export-Upload",
-        callback: function(){DownloadImage();}
+        callback: function(){
+            var methodPicker, method;
+            methodPicker = document.getElementById("ChoosenMethod");
+            method = methodPicker.options[methodPicker.selectedIndex].value;
+            switch (method) {
+                case "E-Mail":
+                    sendMail();
+                    break;
+                case "Download":
+                    DownloadImage();
+                    break;
+            }
+        }
     };
     var cancelButton = {
         label: 'Cancel',
@@ -176,11 +188,14 @@ function ExportDialog(){
         '<br>'+
         '<div>'+
             'Target: <br>'+
-            '<select class="selectpicker show-tick" data-style="btn-primary">'+
+            '<select id="ChoosenMethod" onchange="showMailInput()" class="selectpicker show-tick" data-style="btn-primary">'+
                 '<option>Download</option>'+
-                '<option disabled>E-Mail</option>'+
-                '<option disabled>Cloud-Storage</option>'+
+                '<option>E-Mail</option>'+
             '</select>'+
+            '<div id="DivMail" style="display: none">'+
+                'E-Mail: '+
+                '<input type="email" id="EmailInput" ></input> '+
+            '</div>'+
         '</div>',
         title: "Export",
         callback: function(){},
@@ -194,6 +209,24 @@ function ExportDialog(){
 
     var dialog = bootbox.dialog(options);
     $('.selectpicker').selectpicker();
+}
+
+function showMailInput() {
+    var methodPicker, method;
+    methodPicker = document.getElementById("ChoosenMethod");
+    method = methodPicker.options[methodPicker.selectedIndex].value;
+    if(method == "E-Mail") {
+        document.getElementById("DivMail").style.display = '';
+    } else {
+        document.getElementById("DivMail").style.display = 'none';
+    }
+}
+
+function sendMail() {
+    // TODO: send http-Request here
+    var mail;
+    mail = document.getElementById("EmailInput").value;
+    console.log("Mailaddress: " + mail);
 }
 
 //Ladeanzeige einblenden
@@ -214,6 +247,12 @@ function ShowLoading(){
     var ImageSection = document.getElementById("PictureArea");
     ImageSection.innerHTML = html;
 }
+
+// Bild versenden
+function SendImagePerMail() {
+    
+}
+
 
 //Bild herunterladen
 function DownloadImage(){
