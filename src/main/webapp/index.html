@@ -36,6 +36,18 @@
         <div class = "col-sm-2" style="background-color: white">
             <div class="card" style="border-bottom-width: 0cm;border-left-width: 0cm; border-right-width: 0cm">
                 <img class="card-img-top" src="img/EdivatorLogo.png" style="width:100%" alt="Card image cap">
+                <div class="card-block">
+                    <h6 class="card-title"></h6>
+                    <button id="btn_import" class="btn btn-primary btn-sm" type="button" ng-click="pctrl.OpenUploadDialog();">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                        Import
+                    </button>
+                    <button id="btn_export" class="btn btn-primary btn-sm" type="button" ng-click="picture.ExportDialog();">
+                        <i class="fa fa-download " aria-hidden="true"></i>
+                        Export
+                    </button>
+                    <p class="card-text"></p>
+                </div>
             </div>
         </div>
         <div class = "col-sm-10">
@@ -43,7 +55,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/size.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h4 class="card-title">Size</h4>
+                        <h6 class="card-title">Size</h6>
                         <button id="btn_sizePlus" class="btn btn-outline-primary btn-sm" type="button" ng-click="bigger();">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             10%
@@ -52,25 +64,16 @@
                             <i class="fa fa-minus" aria-hidden="true"></i>
                             10%
                         </button>
-                        <br>
-                        <form>
-                            <div class="input-group">
-                                <input id="width" type="text" class="form-control" name="width" placeholder="width in px">
-                            </div>
-                            <div class="input-group">
-                                <input id="height" type="text" class="form-control" name="height" placeholder="height in px">
-                            </div>
-                        </form>
                         <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">width {{picture.getPictureObject().width}}%, height {{picture.getPictureObject().height}}%</small>
+                        <small class="text-muted">w {{picture.getPictureObject().width}}%, h {{picture.getPictureObject().height}}%</small>
                     </div>
                 </div>
                 <div class="card">
                     <img class="card-img-top" src="img/svg/rotation.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h4 class="card-title">Rotation</h4>
+                        <h6 class="card-title">Rotation</h6>
                         <button id="btn_rotateLeft" class="btn btn-outline-primary btn-sm" type="button" ng-click="rotateLeft()">
                             <i class="fa fa-undo" aria-hidden="true"></i>
                             90°
@@ -88,7 +91,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/flip.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h4 class="card-title">Flip</h4>
+                        <h6 class="card-title">Flip</h6>
                         <button id="btn_flipHorizontal" class="btn btn-outline-primary btn-sm" type="button" ng-click="flipVertical();">
                             <i class="fa fa-arrows-v" aria-hidden="true"></i>
                         </button>
@@ -104,7 +107,7 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/crop.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h4 class="card-title">Crop</h4>
+                        <h6 class="card-title">Crop</h6>
                         <button id="btn_cropWidth" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight();">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
                             10%
@@ -127,10 +130,10 @@
                 <div class="card">
                     <img class="card-img-top" src="img/svg/filter.svg" alt="Card image cap" style="width:100%;">
                     <div class="card-block">
-                        <h4 class="card-title">Filter</h4>
-                        <button id="btn_filterLucky" class="btn btn-outline-primary btn-sm" style="width:100%;" type="button" ng-click="feelingLucky();">
+                        <h6 class="card-title">Filter</h6>
+                        <button id="btn_filterLucky" class="btn btn-outline-primary btn-sm" type="button" ng-click="feelingLucky();">
                             <i class="fa fa-magic" aria-hidden="true"></i>
-                            I'm feeling lucky
+                            use
                         </button>
                         <p class="card-text"></p>
                     </div>
@@ -138,54 +141,12 @@
                         <small class="text-muted">Used {{picture.getPictureObject().feelingLucky}} times</small>
                     </div>
                 </div>
-                <div class="card">
-                    <img class="card-img-top" src="img/svg/transparency.svg" alt="Card image cap" style="width:100%;">
-                    <div class="card-block">
-                        <h4 class="card-title">Transparency</h4>
-                        <p class="card-text"></p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Information</small>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <div class="row">	<!-- Mittelteil -->
-        <div class = "col-sm-2" style="background-color:white;">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Undo or Repeat Changes</h4>
-                    <p class="card-text"></p>
-                    <button id="btn_undo" class="btn btn-primary" type="button" ng-click="picture.back();">
-                        <i class="fa fa-reply" aria-hidden="true"></i>
-                    </button>
-                    <button id="btn_repeat" class="btn btn-primary" type="button" ng-click="picture.forward();">
-                        <i class="fa fa-share" aria-hidden="true"></i>
-                    </button>
-                    <button id="btn_reset" class="btn btn-primary" type="button" ng-click="picture.resetPic();">
-                        <i class="fa fa-eraser" aria-hidden="true"></i>
-                        Reset
-                    </button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Import or Export Image</h4>
-                    <p class="card-text"></p>
-                    <button id="btn_import" class="btn btn-primary" type="button" ng-click="pctrl.OpenUploadDialog();">
-                        <i class="fa fa-upload" aria-hidden="true"></i>
-                        Import
-                    </button>
-                    <button id="btn_export" class="btn btn-primary" type="button" ng-click="picture.ExportDialog();">
-                        <i class="fa fa-download " aria-hidden="true"></i>
-                        Export
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class = "col-sm-10" style="background-color:#d2d2d2;">	<!-- Bild -->
-            <div id="PictureArea"></div>
+        <div class = "col-sm-12" style="background-color:#d2d2d2;">	<!-- Bild -->
+            <div id="PictureArea" style="text-align:center;"></div>
         </div>
     </div>
     <div class="row" >	<!-- Fußzeile -->
@@ -193,15 +154,15 @@
             <i class="fa fa-copyright" aria-hidden="true"></i>Edivator 2017
             <br>
             <br>Hochschule Bremen
-            <br>University of Applied Scienes
+            <br>University of Applied Science
             <br>Masterproject: Cloud-Computing
         </div>
     </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
-<script src="js/frontend.js"></script>
-<script src="js/frontendBackend.js"></script>
+<script src="js/edivator.js"></script>
+<script src="js/backendCommunication.js"></script>
 
 </body>
 </html>
