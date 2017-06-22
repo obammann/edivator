@@ -28,6 +28,10 @@ EdivatorModul.factory('Picture', function() {
 EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     $scope.picture = Picture;
     $scope.imgId = 0;
+
+    $scope.imageWidth = 0;
+    $scope.imageHeight = 0;
+
     this.OpenUploadDialog = function () {
         var img;
         var file;
@@ -52,7 +56,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         console.log('successfull uploaded');
                         $scope.imgId = response.data.id;
                         console.log($scope.imgId);
-                        ShowPicture(response.data.url);
+                        $scope.showPicture(response.data.url);
                         BtnSetObjState();
                     }).catch(function (data) {
                         console.log(data)
@@ -175,6 +179,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
+        $scope.setImageMeasures();
     };
 
     $scope.cropWidth = function() {
@@ -183,6 +188,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(10, 0);
+        $scope.setImageMeasures();
     };
 
     $scope.feelingLucky = function() {
@@ -193,29 +199,22 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         FrontendObj_Filter("FeelingLucky");
     };
 
-    $scope.bigger = function () {
-        console.log("img gets bigger");
-        var url = "/image/" + $scope.imgId + "/resize?percentage=10";
-        ShowLoading();
-        this.callRouteAndActualize(url);
-        FrontendObj_resize(10);
-    };
-
-    $scope.smaler = function () {
-        console.log("image gets smaller");
-        var url = "/image/" + $scope.imgId + "/resize?wishedWidth";
-        ShowLoading();
-        this.callRouteAndActualize(url);
-        FrontendObj_resize(-10);
-    };
-
     $scope.changeSize = function () {
         console.log("imagesize is changed");
         var newWidth = $scope.inputSizeWidth;
         var newHeight = $scope.inputSizeHeight;
+        if (!newWidth) {
+            var scale = $scope.imageWidth / $scope.imageHeight;
+            newWidth = scale * $scope.imageHeight;
+        }
+        if (!newHeight) {
+            var scale = $scope.imageWidth / $scope.imageHeight;
+            newHeight = $scope.imageWidth / scale;
+        }
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
         this.callRouteAndActualize(url);
+        $scope.setImageMeasures();
     }
 
     $scope.callRouteAndActualize = function(url) {
@@ -226,20 +225,26 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         }).then(function (response) {
             console.log(response);
             $scope.imgId = response.data.id;
-            ShowPicture(response.data.url);
+            $scope.showPicture(response.data.url);
         }).catch(function (data) {
             console.log(data)
         });
     }
 
+    $scope.setImageMeasures = function () {
+        $scope.imageWidth = document.getElementById("CurrentImage").naturalWidth;
+        $scope.imageHeight = document.getElementById("CurrentImage").naturalHeight;
+    }
+
+    $scope.showPicture = function (url) {
+        BtnSetObjState();
+        // document.getElementById("CurrentImage").src = url;
+        var html = '<img id= "CurrentImage" src="' + url + '">';
+        var ImageSection = document.getElementById("PictureArea");
+        ImageSection.innerHTML = html;
+        $scope.currentImage = document.querySelector("#CurrentImage");
+        $scope.currentImage.onload = function () {
+            $scope.setImageMeasures();
+        }
+    }
 });
-
-
-
-function ShowPicture(url){
-    BtnSetObjState();
-    var html='<img id= "CurrentImage" src="'+url+'">';
-
-    var ImageSection = document.getElementById("PictureArea");
-    ImageSection.innerHTML = html;
-}
