@@ -6,13 +6,12 @@ footer {
 }
 
 #PictureArea {
-	text-align: center;
-	width: 100%;
 	height: 100%;
+	text-align: center;
 }
 
 #PictureArea img {
-	height: 60%;
+	height: 100%;
 	width: auto;
 }
 

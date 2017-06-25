@@ -179,7 +179,6 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
-        $scope.setImageMeasures();
     };
 
     $scope.cropWidth = function() {
@@ -214,7 +213,6 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
         this.callRouteAndActualize(url);
-        $scope.setImageMeasures();
     }
 
     $scope.callRouteAndActualize = function(url) {
@@ -246,5 +244,13 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         $scope.currentImage.onload = function () {
             $scope.setImageMeasures();
         }
+        $scope.setImageMeasures();
+        $scope.setImageMeasuresCss();
+    }
+
+    $scope.setImageMeasuresCss = function () {
+        //Window height - navigation bar height
+        var imageHeightCss = $(window).height() - 165;
+        document.getElementById("CurrentImage").style.height = imageHeightCss + "px";
     }
 });
