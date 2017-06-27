@@ -1,3 +1,7 @@
+p {
+    margin-left: 1rem;
+}
+
 footer {
 	bottom: 0px;
 	left: 10px;
@@ -11,10 +15,9 @@ footer {
 	text-align: center;
 }
 
-/*#PictureArea img {*/
-/*height: 100%;*/
-/*width: auto;*/
-/*}*/
+#PictureArea img {
+    width: auto;
+}
 
 .card-img-top {
 	width: 100%;

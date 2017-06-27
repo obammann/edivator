@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import com.google.appengine.api.datastore.TransactionOptions;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
@@ -84,7 +83,7 @@ public class ImageEditServiceImpl implements ImageEditService {
     public String resizeImage(String imageId, int wishedWidth, int wishedHeight) {
         Image resizeImage = imageStoreService.getImageFromCloudStorage(imageId);
 
-        Transform transform = ImagesServiceFactory.makeResize(wishedWidth, wishedHeight);
+        Transform transform = ImagesServiceFactory.makeResize(wishedWidth, wishedHeight, true);
         Image resizedImage = imagesService.applyTransform(transform, resizeImage);
 
         String id = new Integer( Math.abs(new Integer(resizedImage.hashCode() + DateTime.now().hashCode()).hashCode())).toString();

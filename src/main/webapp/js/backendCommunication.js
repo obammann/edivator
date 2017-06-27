@@ -206,11 +206,11 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         var newHeight = $scope.inputSizeHeight;
         if (!newWidth) {
             var scale = $scope.imageWidth / $scope.imageHeight;
-            newWidth = scale * $scope.imageHeight;
+            newWidth = scale * newHeight;
         }
         if (!newHeight) {
             var scale = $scope.imageWidth / $scope.imageHeight;
-            newHeight = $scope.imageWidth / scale;
+            newHeight = newWidth / scale;
         }
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
@@ -248,12 +248,12 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                 $scope.setImageMeasures();
             });
         }
-        // $scope.setImageMeasuresCss();
+        $scope.setImageMeasuresCss();
     }
 
     $scope.setImageMeasuresCss = function () {
         //Window height - navigation bar height
-        var imageHeightCss = $(window).height() - 165;
-        document.getElementById("CurrentImage").style.height = imageHeightCss + "px";
+        var imageHeightCss = $(window).height() - 250;
+        document.getElementById("CurrentImage").style.maxHeight = imageHeightCss + "px";
     }
 });
