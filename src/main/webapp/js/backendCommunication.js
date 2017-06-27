@@ -86,11 +86,6 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                             'Select an image file from Disk: '+
                             '<input type="file" id="fileInput">'+
                         '</div>'+
-                        '<br>'+
-                        '<div>'+
-                            'Select an image file from url: '+
-                            '<input type="text" id="fileInputUrl">'+
-                        '</div>'+
                     '</div>'+
                     '<div class="col-sm-5">'+
                         '<div id="fileDisplayArea"></div>'+
