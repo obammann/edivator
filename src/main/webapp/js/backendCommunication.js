@@ -242,10 +242,11 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         ImageSection.innerHTML = html;
         $scope.currentImage = document.querySelector("#CurrentImage");
         $scope.currentImage.onload = function () {
-            $scope.setImageMeasures();
+            $scope.$apply(function () {
+                $scope.setImageMeasures();
+            });
         }
-        $scope.setImageMeasures();
-        $scope.setImageMeasuresCss();
+        // $scope.setImageMeasuresCss();
     }
 
     $scope.setImageMeasuresCss = function () {

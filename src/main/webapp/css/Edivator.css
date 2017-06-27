@@ -7,13 +7,14 @@ footer {
 
 #PictureArea {
 	height: 100%;
+	width: auto;
 	text-align: center;
 }
 
-#PictureArea img {
-	height: 100%;
-	width: auto;
-}
+/*#PictureArea img {*/
+/*height: 100%;*/
+/*width: auto;*/
+/*}*/
 
 .card-img-top {
 	width: 100%;
