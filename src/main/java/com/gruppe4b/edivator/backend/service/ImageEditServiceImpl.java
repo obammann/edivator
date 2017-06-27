@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import com.google.appengine.api.datastore.TransactionOptions;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
@@ -153,15 +154,10 @@ public class ImageEditServiceImpl implements ImageEditService {
         return gson.toJson(createResponse(url,id));
     }
 
-    public String crop(String imageId, boolean cropHeight, int crop) {
+    public String crop(String imageId, float leftBorder, float rightBorder, float topBorder, float bottomBorder) {
         Image croppingImage = imageStoreService.getImageFromCloudStorage(imageId);
 
-        Transform transform = ImagesServiceFactory.makeCrop(0,0,0,0);
-        if (cropHeight) {
-            transform = ImagesServiceFactory.makeCrop(crop,0,crop,0);
-        } else {
-            transform = ImagesServiceFactory.makeCrop(0,crop,0,crop);
-        }
+        Transform transform = ImagesServiceFactory.makeCrop(leftBorder,topBorder,rightBorder,bottomBorder);
 
         Image croppedImage = imagesService.applyTransform(transform, croppingImage);
 

@@ -1,3 +1,43 @@
+footer {
+	bottom: 0px;
+	left: 10px;
+	position: fixed;
+	font-size: 12px;
+}
+
+#PictureArea {
+	height: 100%;
+	width: auto;
+	text-align: center;
+}
+
+/*#PictureArea img {*/
+/*height: 100%;*/
+/*width: auto;*/
+/*}*/
+
+.card-img-top {
+	width: 100%;
+}
+
+.card-block {
+	padding: 5px;
+	text-align: center;
+}
+
+.btn-outline-primary {
+	margin: 2px 0 2px 0;
+	width: 40%;
+}
+
+form {
+	margin: 0;
+}
+
+#btn_sizeApply {
+	width: 100%;
+}
+
 .Sidebar{
 	height: 100%;
 }
