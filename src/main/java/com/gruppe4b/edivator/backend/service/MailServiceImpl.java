@@ -15,7 +15,7 @@ import java.util.Properties;
 public class MailServiceImpl implements MailService {
 
     @Override
-    public void sendImage(Image image, String recipient) {
+    public void sendImage(byte[] imageData, String recipient) {
 
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -28,7 +28,7 @@ public class MailServiceImpl implements MailService {
             msg.setSubject("Dein bearbeitetes Bild");
 
             String htmlBody = "Hallo, dein bearbeitetes Bild liegt im Anhang. \n Mfg. Edivator";
-            byte[] attachmentData = image.getImageData();
+            byte[] attachmentData =imageData;
             Multipart mp = new MimeMultipart();
 
             MimeBodyPart htmlPart = new MimeBodyPart();

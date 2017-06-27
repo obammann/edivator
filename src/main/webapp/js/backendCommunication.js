@@ -28,6 +28,7 @@ EdivatorModul.factory('Picture', function() {
 EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     $scope.picture = Picture;
     $scope.imgId = 0;
+    $scope.imgIdDiv = document.getElementById("imgIdDiv");
 
     $scope.imageWidth = 0;
     $scope.imageHeight = 0;
@@ -55,6 +56,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         console.log(response);
                         console.log('successfull uploaded');
                         $scope.imgId = response.data.id;
+                        $scope.imgIdDiv.setAttribute("value",response.data.id);
                         console.log($scope.imgId);
                         $scope.showPicture(response.data.url);
                         BtnSetObjState();

@@ -4,5 +4,5 @@ import com.google.appengine.api.images.Image;
 import org.springframework.stereotype.Service;
 
 public interface MailService {
-    public void sendImage(Image image, String recipient);
+    public void sendImage(byte[] imageData, String recipient);
 }

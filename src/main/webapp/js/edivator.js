@@ -227,10 +227,13 @@ function showMailInput() {
 }
 
 function sendMail() {
-    // TODO: send http-Request here
     var mail;
     mail = document.getElementById("EmailInput").value;
     console.log("Mailaddress: " + mail);
+    var xhr = new XMLHttpRequest();
+    var url = "/image/"+ document.getElementById("imgIdDiv").getAttribute("value") +"/sendMail?mail=" + mail;
+    xhr.open("PUT", url);
+    xhr.send();
 }
 
 //Ladeanzeige einblenden
@@ -251,12 +254,6 @@ function ShowLoading(){
     var ImageSection = document.getElementById("PictureArea");
     ImageSection.innerHTML = html;
 }
-
-// Bild versenden
-function SendImagePerMail() {
-    
-}
-
 
 //Bild herunterladen
 function DownloadImage(){

@@ -23,7 +23,7 @@ public class MailController {
         if(img == null) {
             return "Image not found...";
         } else {
-            mailService.sendImage(img, mailAddress);
+            mailService.sendImage(img.getImageData(), mailAddress);
             return "Sended Image.";
         }
     }
