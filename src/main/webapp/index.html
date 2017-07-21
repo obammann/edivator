@@ -129,6 +129,17 @@
         <div class="col-sm-2">
             <panel>
                 <p>
+                    <button id="btn_undo" class="btn btn-outline-primary btn-sm" type="button" ng-click="undo()">
+                        <i class="fa fa-undo" aria-hidden="true"></i>
+                        Undo
+                    </button>
+                    <button id="btn_repeat" class="btn btn-outline-primary btn-sm" type="button" ng-click="redo()">
+                        <i class="fa fa-repeat" aria-hidden="true"></i>
+                        Redo
+                    </button>
+                </p>
+
+                <p>
                     <strong>Image information</strong>
                 </p>
                 <p>Width: {{imageWidth}}px</p>

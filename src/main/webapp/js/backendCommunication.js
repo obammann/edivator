@@ -27,7 +27,7 @@ EdivatorModul.factory('Picture', function() {
 
 EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     $scope.picture = Picture;
-    $scope.imgId = 0;
+    $scope.imgId = null;
     $scope.imgIdDiv = document.getElementById("imgIdDiv");
 
     $scope.imageWidth = 0;
@@ -55,7 +55,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                     }).then(function (response) {
                         console.log(response);
                         console.log('successfull uploaded');
-                        $scope.imgId = response.data.id;
+                        $scope.setNewId(response.data.id, response.data.url);
                         $scope.imgIdDiv.setAttribute("value",response.data.id);
                         console.log($scope.imgId);
                         $scope.showPicture(response.data.url);
@@ -126,7 +126,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                     $scope.imgActualHeight = img.height;
                     // Add the image to the page.
                     fileDisplayArea.appendChild(img);
-                }
+                };
 
                 reader.readAsDataURL(file);
             } else {
@@ -138,7 +138,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     $scope.rotateLeft = function() {
         console.log("rotated Left");
         console.log($scope.imgId);
-        var url = "/image/" + $scope.imgId + "/rotate?left=true";
+        var url = "/image/" + $scope.imgId.myId + "/rotate?left=true";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_rotate(-90);
@@ -146,7 +146,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.rotateRight = function() {
         console.log("rotated Right");
-        var url = "/image/" + $scope.imgId + "/rotate?left=false";
+        var url = "/image/" + $scope.imgId.myId + "/rotate?left=false";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_rotate(90);
@@ -154,15 +154,15 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.flipHorizontal = function() {
         console.log("horizontal flipped");
-        var url = "/image/" + $scope.imgId + "/flip?horizontal=true";
+        var url = "/image/" + $scope.imgId.myId + "/flip?horizontal=true";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_flip("h");
-    }
+    };
 
     $scope.flipVertical = function() {
         console.log("verticly flipped");
-        var url = "/image/" + $scope.imgId + "/flip?horizontal=false";
+        var url = "/image/" + $scope.imgId.myId + "/flip?horizontal=false";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_flip("v");
@@ -172,7 +172,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         console.log("height cropped");
         var imgWidth = document.getElementById("CurrentImage").naturalWidth;
         var imgHeight= document.getElementById("CurrentImage").naturalHeight;
-        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + 0 + "&rightBorder=" + 1 + "&topBorder=" + 0.1 + "&bottomBorder=" + 0.9;
+        var url = "/image/" + $scope.imgId.myId + "/crop?leftBorder=" + 0 + "&rightBorder=" + 1 + "&topBorder=" + 0.1 + "&bottomBorder=" + 0.9;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(0, 10);
@@ -180,7 +180,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.cropWidth = function() {
         console.log("width cropped");
-        var url = "/image/" + $scope.imgId + "/crop?leftBorder=" + 0.1 + "&rightBorder=" + 0.9 + "&topBorder=" + 0 + "&bottomBorder=" + 1;
+        var url = "/image/" + $scope.imgId.myId + "/crop?leftBorder=" + 0.1 + "&rightBorder=" + 0.9 + "&topBorder=" + 0 + "&bottomBorder=" + 1;
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_crop(10, 0);
@@ -189,10 +189,22 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.feelingLucky = function() {
         console.log("luckyFilterApplied");
-        var url = "/image/" + $scope.imgId + "/filter/feelinglucky";
+        var url = "/image/" + $scope.imgId.myId + "/filter/feelinglucky";
         ShowLoading();
         this.callRouteAndActualize(url);
         FrontendObj_Filter("FeelingLucky");
+    };
+
+    $scope.undo = function() {
+        console.log("Undo clicked.");
+        $scope.setToLastId();
+        $scope.showPicture($scope.imgId.myURL);
+    };
+
+    $scope.redo = function () {
+        console.log("Redo clicked");
+        $scope.setToNextId();
+        $scope.showPicture($scope.imgId.myURL);
     };
 
     $scope.changeSize = function () {
@@ -210,7 +222,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
         ShowLoading();
         this.callRouteAndActualize(url);
-    }
+    };
 
     $scope.callRouteAndActualize = function(url) {
         $http.put(url, {
@@ -219,17 +231,17 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
             transformRequest: angular.identity
         }).then(function (response) {
             console.log(response);
-            $scope.imgId = response.data.id;
+            $scope.setNewId(response.data.id, response.data.url);
             $scope.showPicture(response.data.url);
         }).catch(function (data) {
             console.log(data)
         });
-    }
+    };
 
     $scope.setImageMeasures = function () {
         $scope.imageWidth = document.getElementById("CurrentImage").naturalWidth;
         $scope.imageHeight = document.getElementById("CurrentImage").naturalHeight;
-    }
+    };
 
     $scope.showPicture = function (url) {
         BtnSetObjState();
@@ -242,13 +254,53 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
             $scope.$apply(function () {
                 $scope.setImageMeasures();
             });
-        }
+        };
         $scope.setImageMeasuresCss();
-    }
+    };
 
     $scope.setImageMeasuresCss = function () {
         //Window height - navigation bar height
         var imageHeightCss = $(window).height() - 250;
         document.getElementById("CurrentImage").style.maxHeight = imageHeightCss + "px";
-    }
+    };
+
+    $scope.refreshUndoRedoButtonStatus = function () {
+        if($scope.imgId != null) {
+            BtnChangeState(Buttons.undo, $scope.imgId.last == null);
+            BtnChangeState(Buttons.repeat, $scope.imgId.next == null);
+        } else {
+            BtnChangeState(Buttons.undo, false);
+            BtnChangeState(Buttons.repeat, false);
+        }
+    };
+
+    $scope.setNewId = function (id, url) {
+      var newNode={
+          myId:id,
+          myURL:url,
+          last:$scope.imgId,
+          next:null
+      };
+      if($scope.imgId == null) {
+          $scope.imgId = newNode;
+      } else {
+          $scope.imgId.next = newNode;
+          $scope.setToNextId();
+      }
+      $scope.refreshUndoRedoButtonStatus();
+    };
+
+    $scope.setToNextId = function () {
+        if($scope.imgId.next != null) {
+            $scope.imgId = $scope.imgId.next;
+        }
+        $scope.refreshUndoRedoButtonStatus();
+    };
+
+    $scope.setToLastId = function () {
+        if($scope.imgId.last != null) {
+            $scope.imgId = $scope.imgId.last;
+        }
+        $scope.refreshUndoRedoButtonStatus();
+    };
 });
