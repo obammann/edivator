@@ -76,19 +76,19 @@ Buttons = {                     //Objekt welches alle Buttons mit ID und Zustand
 
 //Initialfunktion
 $( document ).ready(function() {
-    BtnDiasbaleAll();                       //Alle Buttons ausblenden
-    BtnChangeState(Buttons.import, false);  //Import Button einblenden
+    btnDiasbaleAll();                       //Alle Buttons ausblenden
+    btnChangeState(Buttons.import, false);  //Import Button einblenden
 });
 
 //Zustandsänderung des Bildes im FrontendObj speichern
-function FrontendObj_rotate(angle){
+function frontendObj_rotate(angle) {
     frontendObj.rotation = frontendObj.rotation + angle;
 	if(frontendObj.rotation == 360 || frontendObj.rotation == -360){
         frontendObj.rotation = 0;
     }
 }
 
-function FrontendObj_flip(oriantation){
+function frontendObj_flip(oriantation) {
     switch (oriantation) {
         case ("h")://horizontal
             frontendObj.flippedHorizontal = !frontendObj.flippedHorizontal;
@@ -101,17 +101,17 @@ function FrontendObj_flip(oriantation){
     }
 }
 
-function FrontendObj_crop(leftRight, topBottom){
+function frontendObj_crop(leftRight, topBottom) {
     var maxCrop = 90; //Prozent
     var offsetLeftRight = frontendObj.offsetLeftRight + leftRight;
     var offsetTopBottom = frontendObj.offsetTopBottom + topBottom;
 
     switch (true) {
         case (offsetLeftRight > maxCrop):
-            BtnChangeState(Buttons.cropWidth, true);
+            btnChangeState(Buttons.cropWidth, true);
             break;
         case (offsetTopBottom > maxCrop):
-            BtnChangeState(Buttons.cropHeight, true);
+            btnChangeState(Buttons.cropHeight, true);
             break;
         default:
             frontendObj.offsetLeftRight = offsetLeftRight;
@@ -119,7 +119,7 @@ function FrontendObj_crop(leftRight, topBottom){
     }
 }
 
-function FrontendObj_Filter(name){
+function frontendObj_Filter(name) {
     switch (name) {
         case ("FeelingLucky"):
             frontendObj.feelingLucky = frontendObj.feelingLucky + 1;
@@ -129,31 +129,10 @@ function FrontendObj_Filter(name){
     }
 }
 
-function FrontendObj_resize(value){
-    var minSize = 10;
-    var maxSize = 1000;
-
-    var newSize = frontendObj.width + value;
-
-    switch (true) {
-        case (newSize == minSize):
-            BtnChangeState(Buttons.sizeMinus, true);
-            break;
-        case (newSize == maxSize):
-            BtnChangeState(Buttons.sizePlus, true);
-            break;
-        default:
-            BtnChangeState(Buttons.sizeMinus, false);
-            BtnChangeState(Buttons.sizePlus, false);
-    }
-    frontendObj.width = newSize;
-    frontendObj.height = newSize;
-}
-
 //Export-Dialog erzeugen
-function ExportDialog(){
+function exportDialog() {
     var exportButton = {
-        label: 'export',
+        label: 'Export',
         className: "Export-Upload",
         callback: function(){
             var methodPicker, method;
@@ -164,7 +143,7 @@ function ExportDialog(){
                     sendMail();
                     break;
                 case "Download":
-                    DownloadImage();
+                    downloadImage();
                     break;
             }
         }
@@ -237,8 +216,8 @@ function sendMail() {
 }
 
 //Ladeanzeige einblenden
-function ShowLoading(){
-    BtnDiasbaleAll();
+function showLoading() {
+    btnDiasbaleAll();
     var image = document.getElementById("CurrentImage");
     var imageHeight = "";
     if(image !== null){
@@ -256,7 +235,7 @@ function ShowLoading(){
 }
 
 //Bild herunterladen
-function DownloadImage(){
+function downloadImage() {
     var url, name, typ, DropbdownType;
     url = document.getElementById("CurrentImage").src;
     name = document.getElementById("ChoosenFilename").value;
@@ -279,18 +258,18 @@ function DownloadImage(){
 }
 
 //Alle Buttons disablen
-function BtnDiasbaleAll(){
+function btnDiasbaleAll() {
     $('button').prop('disabled', true);
 }
 
 //Status eines Buttons ändern (disbaled oder nicht disabled
-function BtnChangeState(obj, state){
+function btnChangeState(obj, state) {
     obj.disabled = state;
     $('#' + obj.id).prop('disabled', obj.disabled);
 }
 
 //Alle Buttons auf den Zustand setzen, welche im Buttons obj hinterlegt ist
-function BtnSetObjState(){
+function btnSetObjState() {
     for (var Botton in Buttons) {
         if (Buttons.hasOwnProperty(Botton)) {
             var obj = Buttons[Botton];

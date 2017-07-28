@@ -40,11 +40,11 @@
             <div class="card" style="border-bottom-width: 0cm;border-left-width: 0cm; border-right-width: 0cm">
                 <img class="card-img-top" src="img/EdivatorLogo.png" alt="Card image cap">
                 <div class="card-block">
-                    <button id="btn_import" class="btn btn-primary btn-sm" type="button" ng-click="pctrl.OpenUploadDialog();">
+                    <button id="btn_import" class="btn btn-primary btn-sm" type="button" ng-click="openUploadDialog()">
                         <i class="fa fa-upload" aria-hidden="true"></i>
                         Import
                     </button>
-                    <button id="btn_export" class="btn btn-primary btn-sm" type="button" ng-click="picture.ExportDialog();">
+                    <button id="btn_export" class="btn btn-primary btn-sm" type="button" ng-click="picture.ExportDialog()">
                         <i class="fa fa-download " aria-hidden="true"></i>
                         Export
                     </button>
@@ -102,11 +102,11 @@
                     <img class="card-img-top" src="img/svg/crop.svg" alt="Card image cap">
                     <div class="card-block">
 
-                        <button id="btn_cropWidth" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropWidth();">
+                        <button id="btn_cropWidth" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropWidth()">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(45deg);"></i>
                             10%
                         </button>
-                        <button id="btn_cropHeight" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight();">
+                        <button id="btn_cropHeight" class="btn btn-outline-primary btn-sm" type="button" ng-click="cropHeight()">
                             <i class="fa fa-compress " aria-hidden="true" style="transform: rotate(-45deg);"></i>
                             10%
                         </button>
@@ -116,7 +116,7 @@
                     <img class="card-img-top" src="img/svg/filter.svg" alt="Card image cap">
                     <div class="card-block">
 
-                        <button id="btn_filterLucky" class="btn btn-outline-primary btn-sm" type="button" ng-click="feelingLucky();">
+                        <button id="btn_filterLucky" class="btn btn-outline-primary btn-sm" type="button" ng-click="feelingLucky()">
                             <i class="fa fa-magic" aria-hidden="true"></i>
                             use
                         </button>
@@ -160,7 +160,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
 <script src="js/edivator.js"></script>
-<script src="js/backendCommunication.js"></script>
+<script src="js/controller/pictureController.js"></script>
 
 </body>
 </html>

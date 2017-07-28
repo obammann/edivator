@@ -5,7 +5,9 @@ var EdivatorModul = angular.module('Edivator', []);
 
 EdivatorModul.factory('Picture', function() {
     return {
-        ExportDialog: function() {ExportDialog();},
+        ExportDialog: function () {
+            exportDialog();
+        },
         getPictureObject: function() {
             switch(true){
                 case (frontendObj.flippedHorizontal == true && frontendObj.flippedVertical == false):
@@ -33,7 +35,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     $scope.imageWidth = 0;
     $scope.imageHeight = 0;
 
-    this.OpenUploadDialog = function () {
+    $scope.openUploadDialog = function () {
         var img;
         var file;
 
@@ -59,7 +61,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                         $scope.imgIdDiv.setAttribute("value",response.data.id);
                         console.log($scope.imgId);
                         $scope.showPicture(response.data.url);
-                        BtnSetObjState();
+                        btnSetObjState();
                     }).catch(function (data) {
                         console.log(data)
                     });
@@ -68,7 +70,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
                 reader.readAsArrayBuffer(file);
 
                 dialog.modal('hide');
-                ShowLoading();
+                showLoading();
             }
         };
         var cancelButton = {
@@ -139,33 +141,33 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         console.log("rotated Left");
         console.log($scope.imgId);
         var url = "/image/" + $scope.imgId.myId + "/rotate?left=true";
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_rotate(-90);
+        frontendObj_rotate(-90);
     };
 
     $scope.rotateRight = function() {
         console.log("rotated Right");
         var url = "/image/" + $scope.imgId.myId + "/rotate?left=false";
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_rotate(90);
+        frontendObj_rotate(90);
     };
 
     $scope.flipHorizontal = function() {
         console.log("horizontal flipped");
         var url = "/image/" + $scope.imgId.myId + "/flip?horizontal=true";
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_flip("h");
+        frontendObj_flip("h");
     };
 
     $scope.flipVertical = function() {
         console.log("verticly flipped");
         var url = "/image/" + $scope.imgId.myId + "/flip?horizontal=false";
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_flip("v");
+        frontendObj_flip("v");
     };
 
     $scope.cropHeight = function() {
@@ -173,26 +175,26 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
         var imgWidth = document.getElementById("CurrentImage").naturalWidth;
         var imgHeight= document.getElementById("CurrentImage").naturalHeight;
         var url = "/image/" + $scope.imgId.myId + "/crop?leftBorder=" + 0 + "&rightBorder=" + 1 + "&topBorder=" + 0.1 + "&bottomBorder=" + 0.9;
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_crop(0, 10);
+        frontendObj_crop(0, 10);
     };
 
     $scope.cropWidth = function() {
         console.log("width cropped");
         var url = "/image/" + $scope.imgId.myId + "/crop?leftBorder=" + 0.1 + "&rightBorder=" + 0.9 + "&topBorder=" + 0 + "&bottomBorder=" + 1;
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_crop(10, 0);
+        frontendObj_crop(10, 0);
         $scope.setImageMeasures();
     };
 
     $scope.feelingLucky = function() {
         console.log("luckyFilterApplied");
         var url = "/image/" + $scope.imgId.myId + "/filter/feelinglucky";
-        ShowLoading();
+        showLoading();
         this.callRouteAndActualize(url);
-        FrontendObj_Filter("FeelingLucky");
+        frontendObj_Filter("FeelingLucky");
     };
 
     $scope.undo = function() {
@@ -219,8 +221,8 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
             var scale = $scope.imageWidth / $scope.imageHeight;
             newHeight = newWidth / scale;
         }
-        var url = "/image/" + $scope.imgId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" +newHeight;
-        ShowLoading();
+        var url = "/image/" + $scope.imgId.myId + "/resize?wishedWidth=" + newWidth + "&wishedHeight=" + newHeight;
+        showLoading();
         this.callRouteAndActualize(url);
     };
 
@@ -244,7 +246,7 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
     };
 
     $scope.showPicture = function (url) {
-        BtnSetObjState();
+        btnSetObjState();
         // document.getElementById("CurrentImage").src = url;
         var html = '<img id= "CurrentImage" src="' + url + '">';
         var ImageSection = document.getElementById("PictureArea");
@@ -266,11 +268,11 @@ EdivatorModul.controller('PictureCtrl', function($scope, Picture, $http){
 
     $scope.refreshUndoRedoButtonStatus = function () {
         if($scope.imgId != null) {
-            BtnChangeState(Buttons.undo, $scope.imgId.last == null);
-            BtnChangeState(Buttons.repeat, $scope.imgId.next == null);
+            btnChangeState(Buttons.undo, $scope.imgId.last == null);
+            btnChangeState(Buttons.repeat, $scope.imgId.next == null);
         } else {
-            BtnChangeState(Buttons.undo, false);
-            BtnChangeState(Buttons.repeat, false);
+            btnChangeState(Buttons.undo, false);
+            btnChangeState(Buttons.repeat, false);
         }
     };
 
